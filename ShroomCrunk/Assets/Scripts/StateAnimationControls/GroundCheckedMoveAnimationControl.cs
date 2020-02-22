@@ -7,6 +7,8 @@ public class GroundCheckedMoveAnimationControl : MoveAnimationControl
 	[SerializeField] protected string airborneMoveParam = null;
 	[SerializeField] protected GroundTracker groundTracker = null;
 
+	protected bool isMoving = false;
+
 	public override void Event_MoveBegin()
 	{
 		if (groundTracker == null)
@@ -16,6 +18,7 @@ public class GroundCheckedMoveAnimationControl : MoveAnimationControl
 		}
 		else
 		{
+			isMoving = true;
 			if (anim != null)
 			{
 				if (groundTracker.Grounded)
@@ -38,6 +41,7 @@ public class GroundCheckedMoveAnimationControl : MoveAnimationControl
 
 	public override void Event_MoveEnd()
 	{
+		isMoving = false;
 		if (anim != null)
 		{
 			if (!string.IsNullOrEmpty(moveParam))
@@ -48,6 +52,22 @@ public class GroundCheckedMoveAnimationControl : MoveAnimationControl
 			{
 				anim.SetBool(airborneMoveParam, false);
 			}
+		}
+	}
+
+	public virtual void Event_Landed()
+	{
+		if (anim != null && !string.IsNullOrEmpty(moveParam) && isMoving)
+		{
+			anim.SetBool(moveParam, true);
+		}
+	}
+
+	public virtual void Event_Unlanded()
+	{
+		if (anim != null && !string.IsNullOrEmpty(airborneMoveParam) && isMoving)
+		{
+			anim.SetBool(airborneMoveParam, true);
 		}
 	}
 }
