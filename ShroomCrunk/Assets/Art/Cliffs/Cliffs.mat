@@ -80,7 +80,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeWidth: 0
+    - _EdgeWidth: 0.07
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -92,7 +92,7 @@ Material:
     - _Parallax: 0.02
     - _Radius: 1
     - _Rigidness: 25
-    - _RimPower: 20
+    - _RimPower: 17.7
     - _Scale: 0.08
     - _SideScale: 0.15
     - _SmoothnessTextureChannel: 0
@@ -100,13 +100,13 @@ Material:
     - _Speed: 25
     - _SrcBlend: 1
     - _SwayMax: 0.005
-    - _TopSpread: 2
+    - _TopSpread: 1.08
     - _UVSec: 0
     - _YOffset: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EdgeColor: {r: 0.4056604, g: 0.3233802, b: 0.3233802, a: 1}
+    - _EdgeColor: {r: 0.3962264, g: 0.2971698, b: 0.2971698, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.39680246, g: 0.4245283, b: 0.06608224, a: 1}
+    - _RimColor: {r: 0.6181762, g: 0.6509434, b: 0.21186365, a: 1}
     - _RimColor2: {r: 0, g: 0.620044, b: 0.6509434, a: 1}
