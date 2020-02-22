@@ -10041,21 +10041,6 @@ PrefabInstance:
       propertyPath: invertNormal
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: initialJump
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: extraJump
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: extraDuration
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8920661130635309572, guid: d85343906525a48feb3ea29e3acfff0f,
         type: 3}
       propertyPath: m_LocalPosition.x
