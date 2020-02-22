@@ -8,7 +8,10 @@ public class PlayerAnimator : MonoBehaviour
 
 	private void Start()
 	{
-		anim = GetComponent<Animator>();
+		if (anim == null)
+		{
+			anim = GetComponent<Animator>();
+		}
 	}
 
 	public void StartAnimation(string tag)
@@ -19,5 +22,10 @@ public class PlayerAnimator : MonoBehaviour
 	public void StopAnimation(string tag)
 	{
 		anim.SetBool(tag, false);
+	}
+
+	public void TriggerAnimation(string tag)
+	{
+		anim.SetTrigger(tag);
 	}
 }

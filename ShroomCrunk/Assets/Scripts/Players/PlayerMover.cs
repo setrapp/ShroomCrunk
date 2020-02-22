@@ -27,11 +27,13 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 	Rigidbody body = null;
 	public Rigidbody Body => body;
-	PlayerAnimator anim = null;
+	private PlayerAnimator anim = null;
 	[SerializeField]
 	MovementPlane plane = MovementPlane.XY;
 	[SerializeField]
 	MovementType moveType = MovementType.ScreenWalk;
+	[SerializeField]
+	string moveAnimation = "Move";//todo this gonna break on jumping... maybe make a separate script for picking animations 
 	Vector3 horizontalAxis = Vector3.right;
 	Vector3 verticalAxis = Vector3.up;
 	Vector3 rotationAxis = Vector3.forward;
@@ -46,7 +48,10 @@ public class PlayerMover : MonoBehaviour, IPreventable
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
-		anim = GetComponent<PlayerAnimator>();
+		if (anim == null)
+		{
+			anim = GetComponent<PlayerAnimator>();
+		}
 
 		stats = defaultStats;
 
@@ -77,7 +82,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 				moving = true;
 				if (anim != null)
 				{
-					anim.StartAnimation("move");
+					anim.StartAnimation(moveAnimation);
 				}
 			}
 		}
@@ -88,7 +93,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 				moving = false;
 				if (anim != null)
 				{
-					anim.StopAnimation("move");
+					anim.StopAnimation(moveAnimation);
 				}
 			}
 		}
