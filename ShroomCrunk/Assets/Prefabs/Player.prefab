@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalizeForMass: 1
-  initialJump: 12
-  extraJump: 0.4
-  extraDuration: 0.3
+  initialJump: 18
+  extraJump: 0.8
+  extraDuration: 0.4
   requireJumpRelease: 1
   onJump:
     m_PersistentCalls:
