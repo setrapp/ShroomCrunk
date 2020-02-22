@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8c8fbac974e4556803ecd44ea442a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounciness: 50
+  bounciness: 75
 --- !u!1 &4651361345104319850
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,8 +289,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef80c222eb39a414e9de05617d1ff0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growTime: 2
+  growTime: 0.2
   lifeTime: 20
+  deathTime: 2
 --- !u!1 &6799392597650119517
 GameObject:
   m_ObjectHideFlags: 0
