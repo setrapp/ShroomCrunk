@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 8920661130635309568}
   - component: {fileID: 8920661130635309569}
   - component: {fileID: 4137150272076517361}
+  - component: {fileID: 1153215941}
+  - component: {fileID: 1153215946}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -303,8 +305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalizeForMass: 1
-  initialJump: 18
-  extraJump: 0.8
+  initialJump: 25
+  extraJump: 1
   extraDuration: 0.4
   requireJumpRelease: 1
   onJump:
@@ -313,6 +315,31 @@ MonoBehaviour:
       - m_Target: {fileID: 529861262}
         m_MethodName: Event_Jump
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1153215941}
+        m_MethodName: Event_TrackJump
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onJumpReleased:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1153215941}
+        m_MethodName: Event_TrackJump
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -341,7 +368,36 @@ MonoBehaviour:
   grassGrowChance: 0.25
   grassDeleteTime: 10
   mushroomDeleteTime: 30
+  minMushroomSpawnDistance: 0
   raycasting_point: {fileID: 6436048906519231828}
+--- !u!114 &1153215941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920661130635309573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589c03c3e1f1f4022bf93e167c8965e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poundAnimParam: 
+  poundStrength: 50
+--- !u!114 &1153215946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920661130635309573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42f5f7613e5bcf488b5efd08896a3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positions:
+  - {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8920661130994174851
 GameObject:
   m_ObjectHideFlags: 0
