@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class grass_script : mushroom_script
 {
-    
 }
+    

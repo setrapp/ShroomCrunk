@@ -34,6 +34,6 @@ public class move_my_guy : MonoBehaviour
         Vector3 move_vec = transform.forward * forwardInput * speed + transform.right * sideInput * speed;
         move_vec.y = 0;
         cc.Move(move_vec);
-        transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
     }
 }

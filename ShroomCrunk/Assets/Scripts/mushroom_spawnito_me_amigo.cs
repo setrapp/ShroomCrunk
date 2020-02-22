@@ -32,32 +32,31 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
             bool hit_some = Physics.Raycast(raycasting_point.position, randomDirection(), out hit, spawnRadius, mask);
             if (hit_some)
             {
-                Debug.Log(hit.point);
+                //Debug.Log(hit.point);
                 float roll = Random.Range(0f, 1f);
                 if (roll < shroomGrowChance)
                 {
                     if (Vector3.SqrMagnitude(hit.point - transform.position) > 36)
                     {
-                        spawnMushroom(hit.point);
+                        spawnMushroom(hit);
                     }
                 }
                 else if (roll < grassGrowChance)
                 {
-                    spawnGrass(hit.point);
+                    spawnGrass(hit);
                 }
             }
         }
     }
 
-    private bool spawnGrass(Vector3 point)
+    private bool spawnGrass(RaycastHit hit)
     {
-        Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up);
-        GameObject instance = Instantiate(grass, point, rot);
+        Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), hit.normal);
+        GameObject instance = Instantiate(grass, hit.point, rot);
         grass_script grasScript= instance.GetComponent<grass_script>();
         if (grasScript != null)
         {
             grasScript.growUp();
-            Destroy(instance, grassDeleteTime);
             return true;
         }
         else
@@ -65,15 +64,14 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
             return false;
         }
     }
-    private bool spawnMushroom(Vector3 point)
+    private bool spawnMushroom(RaycastHit hit)
     {
-        Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), Vector3.up);
-        GameObject instance = Instantiate(mushroom, point, rot);
+        Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), hit.normal);
+        GameObject instance = Instantiate(mushroom, hit.point, rot);
         mushroom_script mushScript = instance.GetComponent<mushroom_script>();
         if(mushScript != null)
         {
             mushScript.growUp();
-            Destroy(instance, mushroomDeleteTime);
             return true;
         } else
         {
