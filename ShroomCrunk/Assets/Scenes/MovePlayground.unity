@@ -121,42 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &529861259 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1927632780117341667, guid: d85343906525a48feb3ea29e3acfff0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 8920661129393161519}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &529861260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 529861259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f712646ac71d84e6989a50bd766d9e63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 1234895864}
-  landedParam: 
-  groundTracker: {fileID: 1312536367}
---- !u!114 &529861262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 529861259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25f423a3b1f1e417097d611ee9d50707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 1234895864}
-  jumpParam: Jump
-  groundTracker: {fileID: 1312536367}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,24 +296,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
---- !u!95 &1234895864 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7416696950427671733, guid: d85343906525a48feb3ea29e3acfff0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 8920661129393161519}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1312536367 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-    type: 3}
-  m_PrefabInstance: {fileID: 8920661129393161519}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5884065b7dc2d487ba354a2094b1a550, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2106420170
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,66 +397,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onLanded.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onLanded.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onLanded.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onLanded.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 529861260}
-    - target: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onLanded.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Event_Landed
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309568, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onLanded.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 529861262}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Event_Jump
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309569, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: onJump.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 8920661130635309572, guid: d85343906525a48feb3ea29e3acfff0f,
         type: 3}
       propertyPath: m_LocalPosition.x
