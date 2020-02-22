@@ -173,7 +173,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 		float addPortion = 0;
 		if (bodyVelocityOnPlane.sqrMagnitude < stats.maxSpeed * stats.maxSpeed)
 		{
-			addPortion = 1 - Mathf.Clamp(attemptedVelocityAdd.magnitude / (stats.maxSpeed - bodyVelocityOnPlane.magnitude), 0, 1); 
+			addPortion = 1 - Mathf.Clamp(attemptedVelocityAdd.magnitude / (stats.maxSpeed - bodyVelocityOnPlane.magnitude), 0, 1);
 		}
 
 		if (AttempingMoveForward(horizontal, vertical))
@@ -223,7 +223,12 @@ public class PlayerMover : MonoBehaviour, IPreventable
 		return false;
 	}
 
-	public void ApplyExternalForce(Vector3 force, PlaneComponent planeComponent = PlaneComponent.All)
+	public void ApplyExternalForce(Vector3 force, bool freshParallel)
+	{
+		ApplyExternalForce(force, PlaneComponent.All, freshParallel);
+	}
+
+	public void ApplyExternalForce(Vector3 force, PlaneComponent planeComponent = PlaneComponent.All, bool freshParallel = false)
 	{
 		Vector3 relevantForce = force; 
 		switch (planeComponent)
@@ -234,6 +239,14 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			case PlaneComponent.Normal:
 				relevantForce = OnPlaneNormal(force);
 				break;
+		}
+
+		// When using fresh parallel, remove all other motion in the force direction.
+		if (freshParallel)
+		{
+			var forceDirection = force.normalized;
+			externalForce -= Vector3.Project(externalForce, forceDirection);
+			body.velocity -= Vector3.Project(body.velocity, forceDirection);
 		}
 
 		externalForce += relevantForce;
