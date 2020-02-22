@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class mushroom_script : MonoBehaviour
+public abstract class baseSpawningThing : MonoBehaviour
 {
     public float growTime = 2f;
     public float lifeTime = 30f;
@@ -19,7 +19,7 @@ public class mushroom_script : MonoBehaviour
         lifeTime = lifeTime + Random.Range(lifeTime - 3f, lifeTime + 3f);
         //Debug.Log("dying");
         float timeAlive = 0f;
-        while(timeAlive < lifeTime)
+        while (timeAlive < lifeTime)
         {
             timeAlive += Time.deltaTime;
             yield return null;
@@ -30,7 +30,7 @@ public class mushroom_script : MonoBehaviour
         while (timeDying < growTime)
         {
             timeDying += Time.deltaTime;
-            scale = Mathf.Lerp(initialScale, Mathf.Epsilon, timeDying/growTime);
+            scale = Mathf.Lerp(initialScale, Mathf.Epsilon, timeDying / growTime);
             transform.localScale = new Vector3(scale, scale, scale);
             yield return null;
         }
@@ -51,5 +51,15 @@ public class mushroom_script : MonoBehaviour
             transform.localScale = new Vector3(scale, scale, scale);
             yield return null;
         }
+    }
+
+    abstract protected void death();
+}
+
+public class mushroom_script : baseSpawningThing
+{
+    protected override void death()
+    {
+        Destroy(this.gameObject);
     }
 }

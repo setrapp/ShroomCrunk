@@ -13,9 +13,7 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     public float grassDeleteTime;
     public float mushroomDeleteTime;
 
-    //TODO remove
-    private move_my_guy mmg;
-    
+        
     public Transform raycasting_point;
     bool spawning = false;
 
@@ -28,12 +26,7 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		// TODO: remove
-		if (mmg != null)
-		{
-			spawning = mmg.Movin;
-		}
-
+		
 		if (spawning)
         {
 			RaycastHit hit;
