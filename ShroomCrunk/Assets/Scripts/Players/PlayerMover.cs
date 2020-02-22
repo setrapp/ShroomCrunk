@@ -44,7 +44,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 	{
 		get
 		{
-			return Vector3.Cross(Vector3.right, Up);
+			return Vector3.Cross(Camera.main.transform.right, Up);
 		}
 	}
 	Vector3 rotationAxis => Up;

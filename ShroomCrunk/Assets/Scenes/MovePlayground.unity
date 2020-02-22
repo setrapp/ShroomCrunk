@@ -704,16 +704,6 @@ PrefabInstance:
       propertyPath: maxIncline
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309570, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920661130635309571, guid: d85343906525a48feb3ea29e3acfff0f,
-        type: 3}
-      propertyPath: defaultStats.turnSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 8920661130635309572, guid: d85343906525a48feb3ea29e3acfff0f,
         type: 3}
       propertyPath: m_LocalPosition.x

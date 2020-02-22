@@ -180,7 +180,7 @@ MonoBehaviour:
   moveType: 0
   groundTracker: {fileID: 8920661130635309568}
   defaultStats:
-    maxSpeed: 10
+    maxSpeed: 30
     acceleration: 100
     turnSpeed: 5
     dragFactor: 0.6
@@ -278,9 +278,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalizeForMass: 1
-  initialJump: 5
-  extraJump: 0.5
-  extraDuration: 0.3
+  initialJump: 8
+  extraJump: 0.8
+  extraDuration: 0.5
   requireJumpRelease: 1
   onJump:
     m_PersistentCalls:
@@ -481,17 +481,17 @@ PrefabInstance:
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e863c04ae88ef74195a7f94505f39a5, type: 3}
