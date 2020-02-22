@@ -6,6 +6,7 @@ public abstract class baseSpawningThing : MonoBehaviour
 {
     public float growTime = 2f;
     public float lifeTime = 30f;
+	public float deathTime = 2f;
     public void growUp()
     {
         float growStartScale = .001f;
@@ -27,10 +28,10 @@ public abstract class baseSpawningThing : MonoBehaviour
         float timeDying = 0f;
         float initialScale = transform.localScale.x;
         float scale = initialScale;
-        while (timeDying < growTime)
+        while (timeDying < deathTime)
         {
             timeDying += Time.deltaTime;
-            scale = Mathf.Lerp(initialScale, Mathf.Epsilon, timeDying / growTime);
+            scale = Mathf.Lerp(initialScale, Mathf.Epsilon, timeDying / deathTime);
             transform.localScale = new Vector3(scale, scale, scale);
             yield return null;
         }
@@ -46,7 +47,7 @@ public abstract class baseSpawningThing : MonoBehaviour
         float finalScale = Random.Range(.5f, 2f);
         while (scale < finalScale - .01f)
         {
-            timePassed += Time.deltaTime;
+            timePassed += Time.deltaTime / growTime;
             scale = Mathf.Lerp(startScale, 1.0f, timePassed);
             transform.localScale = new Vector3(scale, scale, scale);
             yield return null;

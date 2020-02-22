@@ -6,7 +6,13 @@ public class ShroomBounce : MonoBehaviour
 {
 	[SerializeField] float bounciness = 10f;
 
-	private void OnTriggerEnter(Collider other)
+    private ShroomBounceEffect effect;
+    private void Awake()
+    {
+        effect = GetComponent<ShroomBounceEffect>();
+    }
+
+    private void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
@@ -18,6 +24,11 @@ public class ShroomBounce : MonoBehaviour
 			{
 				anim.SetTrigger("Bounce");
 			}
+
+            if(effect != null)
+            {
+                effect.triggerEffect();
+            }
 		}
 	}
 }
