@@ -363,11 +363,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroom: {fileID: 6551062347166392413, guid: c8e194a0040cc468d849c73d989e34ca,
     type: 3}
-  grass: {fileID: 6422158464006492181, guid: 2360608694b06b643ab1f4a566213dee, type: 3}
+  grass: {fileID: 6422158464006492181, guid: b1e089df4488c204da3c676de79553f8, type: 3}
   spawnRadius: 15
   shroomGrowChance: 0.02
-  grassGrowChance: 1
-  grassDeleteTime: 0.1
+  grassGrowChance: 0.5
+  grassDeleteTime: 1
   mushroomDeleteTime: 30
   minMushroomSpawnDistance: 0
   raycasting_point: {fileID: 6436048906519231828}
