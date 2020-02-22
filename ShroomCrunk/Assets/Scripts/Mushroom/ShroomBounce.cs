@@ -12,6 +12,12 @@ public class ShroomBounce : MonoBehaviour
 		{
 			var mover = other.GetComponentInParent<PlayerMover>();
 			mover.ApplyExternalForce(transform.up * bounciness, true);
+
+			var anim = GetComponentInParent<Animator>();
+			if (anim != null)
+			{
+				anim.SetTrigger("Bounce");
+			}
 		}
 	}
 }
