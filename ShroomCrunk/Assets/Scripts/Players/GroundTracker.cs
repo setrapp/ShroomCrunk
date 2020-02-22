@@ -16,18 +16,34 @@ public class GroundTracker : MonoBehaviour
 
 	public bool Grounded { get { return groundHits.Count > 0; } }
 
+	public Vector3 GroundNormal
+	{
+		get
+		{
+			Vector3 normal = (zNormal ? Vector3.forward : Vector3.up);
+			if (Grounded)
+			{
+				normal = zNormal ? groundHits[groundHits.Count - 1].transform.forward : groundHits[groundHits.Count - 1].transform.up;
+			}
+
+			normal *= (invertNormal ? -1 : 1);
+			return normal;
+		}
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		bool wasGrounded = Grounded;
 
 		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)) && !groundHits.Contains(collision.collider))
 		{
-			var minDot = Mathf.Cos((90 - maxIncline) * Mathf.Deg2Rad);
+			var minDot = Mathf.Cos(maxIncline * Mathf.Deg2Rad);
 			bool hasVerticalContact = false;
 
 			foreach(var contact in collision.contacts)
 			{
-				var contactNormal = invertNormal ? -contact.normal : contact.normal;
+				// TODO This is not enough to prevent the player from running on ground at too sharp and incline.
+				var contactNormal = invertNormal ? -Vector3.up : Vector3.up;
 				var colliderNormal = zNormal ? collision.collider.transform.forward : collision.collider.transform.up;
 				if (Vector3.Dot(contactNormal, colliderNormal) >= minDot)
 				{

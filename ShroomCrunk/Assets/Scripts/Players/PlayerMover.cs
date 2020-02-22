@@ -28,13 +28,28 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 	Rigidbody body = null;
 	public Rigidbody Body => body;
+
 	[SerializeField]
-	MovementPlane plane = MovementPlane.XY;
+	MovementPlane defaultMovePlane = MovementPlane.XY;
 	[SerializeField]
 	MovementType moveType = MovementType.ScreenWalk;
-	Vector3 horizontalAxis = Vector3.right;
-	Vector3 verticalAxis = Vector3.up;
-	Vector3 rotationAxis = Vector3.forward;
+	Vector3 horizontalAxis
+	{
+		get
+		{
+			return Vector3.Cross(Up, verticalAxis);
+		}
+	}
+	Vector3 verticalAxis
+	{
+		get
+		{
+			return Vector3.Cross(Vector3.right, Up);
+		}
+	}
+	Vector3 rotationAxis => Up;
+	[SerializeField]
+	GroundTracker groundTracker = null;
 	[SerializeField]
 	MoveStats defaultStats = null;
 	MoveStats stats = null;
@@ -46,25 +61,38 @@ public class PlayerMover : MonoBehaviour, IPreventable
 	[SerializeField] UnityEvent OnMoveBegin = null;
 	[SerializeField] UnityEvent OnMoveEnd = null;
 
+	public Vector3 Up
+	{
+		get
+		{
+			var up = Vector3.up;
+			if (groundTracker == null || !groundTracker.Grounded)
+			{
+				switch (defaultMovePlane)
+				{
+					case MovementPlane.XY:
+						up = Vector3.forward;
+						break;
+					case MovementPlane.XZ:
+						up = Vector3.up;
+						break;
+				}
+			}
+			else
+			{
+				up = groundTracker.GroundNormal;
+			}
+
+			return up;
+		}
+	}
+
 
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
 
 		stats = defaultStats;
-
-		switch (plane)
-		{
-			case MovementPlane.XY:
-				horizontalAxis = Vector3.right;
-				verticalAxis = Vector3.up;
-				break;
-			case MovementPlane.XZ:
-				horizontalAxis = Vector3.right;
-				verticalAxis = Vector3.forward;
-				break;
-		}
-		rotationAxis = Vector3.Cross(horizontalAxis, verticalAxis);
 	}
 
 	private void FixedUpdate()
@@ -104,7 +132,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 					vertical = 0;
 				}
 
-				switch (plane)
+				switch (defaultMovePlane)
 				{
 					case MovementPlane.XY:
 						internalForce = (((transform.right * horizontal) + (transform.up * vertical))).normalized * stats.acceleration;
@@ -135,7 +163,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 			if (!preventingControl)
 			{
-				transform.rotation = Quaternion.RotateTowards(body.rotation, Quaternion.Euler(rotationAxis * angle), stats.turnSpeed);
+				transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(-rotationAxis * angle), stats.turnSpeed);
 			}
 		}
 
@@ -156,9 +184,9 @@ public class PlayerMover : MonoBehaviour, IPreventable
 		if (!AttempingMoveForward(horizontal, vertical) && externalForce.sqrMagnitude < Helper.Epsilon)
 		{
 			var noDragVelocity = body.velocity;
-			//body.velocity *= stats.dragFactor;
+			body.velocity *= stats.dragFactor;
 
-			switch (plane)
+			switch (defaultMovePlane)
 			{
 				case MovementPlane.XY:
 					body.velocity = new Vector3(body.velocity.x, body.velocity.y, noDragVelocity.z);
@@ -238,18 +266,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 	Vector3 OnPlaneNormal(Vector3 toProject)
 	{
-		Vector3 planeNormal = Vector3.zero;
-		switch (plane)
-		{
-			case MovementPlane.XY:
-				planeNormal = Vector3.forward;
-				break;
-			case MovementPlane.XZ:
-				planeNormal = Vector3.up;
-				break;
-		}
-
-		return Vector3.Project(toProject, planeNormal);
+		return Vector3.Project(toProject, Up);
 	}
 }
 
