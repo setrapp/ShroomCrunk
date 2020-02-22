@@ -32,12 +32,14 @@ public class PlayerJump : MonoBehaviour
 
 		if (Mathf.Abs(jump) > Helper.Epsilon)
 		{
-			if (groundTracker.Grounded)
+			bool exclusiveForce = false;
+   			if (groundTracker.Grounded)
 			{
 				if (readyToJump)
 				{
 					jumpRemaining = extraDuration;
 					jumpStrength = initialJump;
+					exclusiveForce = true;
 					onJump.Invoke();
 				}
 				else
@@ -61,8 +63,9 @@ public class PlayerJump : MonoBehaviour
 					jumpStrength *= mover.Body.mass;
 				}
 
-				var jumpForce = new Vector3(jumpStrength, jumpStrength, jumpStrength);
-				mover.ApplyExternalForce(jumpForce, PlayerMover.PlaneComponent.Normal);
+				// TODO This should be able to work at other orientations (not necessarily based in place)
+				var jumpForce = new Vector3(0, jumpStrength, 0);
+				mover.ApplyExternalForce(jumpForce, PlayerMover.PlaneComponent.All, exclusiveForce);
 				jumpRemaining -= Time.deltaTime;
 			}
 		}

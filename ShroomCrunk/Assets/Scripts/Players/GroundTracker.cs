@@ -11,6 +11,8 @@ public class GroundTracker : MonoBehaviour
 	[SerializeField] bool invertNormal = false;
 	[SerializeField, Range(0, 90)] float maxIncline = 45f;
 	[SerializeField] UnityEvent onLanded = null;
+	[SerializeField] UnityEvent onUnlanded = null;
+
 
 	List<Collider> groundHits = new List<Collider>();
 
@@ -44,8 +46,9 @@ public class GroundTracker : MonoBehaviour
 			{
 				// TODO This is not enough to prevent the player from running on ground at too sharp and incline.
 				var contactNormal = invertNormal ? -contact.normal : contact.normal;
-				var colliderNormal = zNormal ? collision.collider.transform.forward : collision.collider.transform.up;
-				if (Vector3.Dot(contactNormal, colliderNormal) >= minDot)
+
+				// TODO This should work on planes other XZ
+				if (Vector3.Dot(contactNormal, Vector3.up) >= minDot)
 				{
 					hasVerticalContact = true;
 					break;
@@ -66,12 +69,18 @@ public class GroundTracker : MonoBehaviour
 
 	private void OnCollisionExit(Collision collision)
 	{
+		bool wasGrounded = Grounded;
 		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)))
 		{
 			if (groundHits.Contains(collision.collider))
 			{
 				groundHits.Remove(collision.collider);
 			}
+		}
+
+		if (!Grounded && wasGrounded)
+		{
+			onUnlanded.Invoke();
 		}
 	}
 }

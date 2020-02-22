@@ -47,7 +47,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			return Vector3.Cross(Camera.main.transform.right, Up);
 		}
 	}
-	Vector3 rotationAxis => Up;
+	Vector3 rotationAxis;
 	[SerializeField]
 	GroundTracker groundTracker = null;
 	[SerializeField]
@@ -91,6 +91,16 @@ public class PlayerMover : MonoBehaviour, IPreventable
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
+
+		switch (defaultMovePlane)
+		{
+			case MovementPlane.XY:
+				rotationAxis = Vector3.forward;
+				break;
+			case MovementPlane.XZ:
+				rotationAxis = Vector3.up;
+				break;
+		}
 
 		stats = defaultStats;
 	}
