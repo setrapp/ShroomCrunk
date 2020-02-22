@@ -43,7 +43,7 @@ public class GroundTracker : MonoBehaviour
 			foreach(var contact in collision.contacts)
 			{
 				// TODO This is not enough to prevent the player from running on ground at too sharp and incline.
-				var contactNormal = invertNormal ? -Vector3.up : Vector3.up;
+				var contactNormal = invertNormal ? -contact.normal : contact.normal;
 				var colliderNormal = zNormal ? collision.collider.transform.forward : collision.collider.transform.up;
 				if (Vector3.Dot(contactNormal, colliderNormal) >= minDot)
 				{
