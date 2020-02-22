@@ -93,4 +93,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growTime: 2
-  lifeTime: 10
+  lifeTime: 5

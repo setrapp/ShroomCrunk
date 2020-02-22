@@ -220,6 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef80c222eb39a414e9de05617d1ff0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growTime: 2
+  lifeTime: 20
 --- !u!136 &-2879097391213542362
 CapsuleCollider:
   m_ObjectHideFlags: 0
