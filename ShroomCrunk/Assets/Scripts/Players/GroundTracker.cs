@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class GroundTracker : MonoBehaviour
 {
 	[SerializeField] string groundLayer = "Ground";
+	[SerializeField] bool zNormal = false;
 	[SerializeField] bool invertNormal = false;
 	[SerializeField, Range(0, 90)] float maxIncline = 45f;
 	[SerializeField] UnityEvent onLanded = null;
@@ -26,8 +27,9 @@ public class GroundTracker : MonoBehaviour
 
 			foreach(var contact in collision.contacts)
 			{
-				var normal = invertNormal ? -contact.normal : contact.normal;
-				if (Vector3.Dot(normal, collision.collider.transform.forward) >= minDot)
+				var contactNormal = invertNormal ? -contact.normal : contact.normal;
+				var colliderNormal = zNormal ? collision.collider.transform.forward : collision.collider.transform.up;
+				if (Vector3.Dot(contactNormal, colliderNormal) >= minDot)
 				{
 					hasVerticalContact = true;
 					break;
