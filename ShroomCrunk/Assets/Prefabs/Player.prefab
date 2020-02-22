@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2851590071802064411}
   - component: {fileID: 529861260}
   - component: {fileID: 529861262}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AnimationControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6436048906519231828}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RaycastPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 8920661130635309568}
   - component: {fileID: 8920661130635309569}
   - component: {fileID: 4137150272076517361}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 8920661130994174879}
   - component: {fileID: 8920661130994174848}
   - component: {fileID: 8920661130994174849}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,10 +418,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8920661130635309572}
     m_Modifications:
+    - target: {fileID: 950701237443655886, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1693127769701004257, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693127769701004257, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1841495174999359277, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
@@ -492,6 +507,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752172563345229987, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004929005489787531, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923658234213591730, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7352334897840824575, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674356058912668282, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819882417451150206, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122376171925574906, guid: 8e863c04ae88ef74195a7f94505f39a5,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e863c04ae88ef74195a7f94505f39a5, type: 3}
