@@ -360,13 +360,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6438077a8c39b543862d6fa9dabcb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mushroom: {fileID: 6551062347166392413, guid: cba89186df732bc428a0b5c9c30b0760,
+  mushroom: {fileID: 6551062347166392413, guid: c8e194a0040cc468d849c73d989e34ca,
     type: 3}
   grass: {fileID: 6422158464006492181, guid: 2360608694b06b643ab1f4a566213dee, type: 3}
-  spawnRadius: 12
+  spawnRadius: 15
   shroomGrowChance: 0.02
-  grassGrowChance: 0.25
-  grassDeleteTime: 10
+  grassGrowChance: 1
+  grassDeleteTime: 0.1
   mushroomDeleteTime: 30
   minMushroomSpawnDistance: 0
   raycasting_point: {fileID: 6436048906519231828}
@@ -384,6 +384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poundAnimParam: 
   poundStrength: 50
+  mushroomToPlant: {fileID: -222794840392140780, guid: cba89186df732bc428a0b5c9c30b0760,
+    type: 3}
 --- !u!114 &1153215946
 MonoBehaviour:
   m_ObjectHideFlags: 0

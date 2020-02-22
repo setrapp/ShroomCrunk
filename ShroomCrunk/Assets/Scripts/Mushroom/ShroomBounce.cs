@@ -11,7 +11,7 @@ public class ShroomBounce : MonoBehaviour
 		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
 			var mover = other.GetComponentInParent<PlayerMover>();
-			mover.ApplyExternalForce(transform.up * bounciness, true);
+			mover.ApplyExternalForce(Vector3.up * bounciness, true);
 
 			var anim = GetComponentInParent<Animator>();
 			if (anim != null)
