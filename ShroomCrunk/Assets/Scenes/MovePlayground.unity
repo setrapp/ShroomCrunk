@@ -473,9 +473,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalizeForMass: 1
-  initialJump: 2
-  extraJump: 0.2
+  initialJump: 5
+  extraJump: 0.5
   extraDuration: 0.3
+  requireJumpRelease: 1
 --- !u!114 &1312536367
 MonoBehaviour:
   m_ObjectHideFlags: 0

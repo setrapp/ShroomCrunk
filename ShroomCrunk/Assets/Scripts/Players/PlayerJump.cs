@@ -9,8 +9,10 @@ public class PlayerJump : MonoBehaviour
 	[SerializeField] float initialJump = 10f;
 	[SerializeField] float extraJump = 1f;
 	[SerializeField] float extraDuration = 1f;
+	[SerializeField] bool requireJumpRelease = false;
 
 	float jumpRemaining = 0f;
+	bool readyToJump = true;
 
 	PlayerMover mover = null;
 	GroundTracker groundTracker = null;
@@ -30,12 +32,23 @@ public class PlayerJump : MonoBehaviour
 		{
 			if (groundTracker.Grounded)
 			{
-				jumpRemaining = extraDuration;
-				jumpStrength = initialJump;
+				if (readyToJump)
+				{
+					jumpRemaining = extraDuration;
+					jumpStrength = initialJump;
+				}
+				else
+				{
+					jumpRemaining = 0;
+				}
 			}
 			else
 			{
 				jumpStrength = extraJump;
+				if (requireJumpRelease)
+				{
+					readyToJump = false;
+				}
 			}
 
 			if (jumpRemaining > 0)
@@ -52,6 +65,7 @@ public class PlayerJump : MonoBehaviour
 		}
 		else
 		{
+			readyToJump = true;
 			jumpRemaining = 0;
 		}
 	}
