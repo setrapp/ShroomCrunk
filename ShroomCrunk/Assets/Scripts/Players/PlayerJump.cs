@@ -12,6 +12,7 @@ public class PlayerJump : MonoBehaviour
 	[SerializeField] float extraDuration = 1f;
 	[SerializeField] bool requireJumpRelease = false;
 	[SerializeField] UnityEvent onJump = null;
+	[SerializeField] UnityEvent onJumpReleased = null;
 
 	float jumpRemaining = 0f;
 	bool readyToJump = true;
@@ -73,6 +74,7 @@ public class PlayerJump : MonoBehaviour
 		{
 			readyToJump = true;
 			jumpRemaining = 0;
+			onJumpReleased.Invoke();
 		}
 	}
 }
