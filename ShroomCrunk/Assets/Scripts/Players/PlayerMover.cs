@@ -18,7 +18,15 @@ public class PlayerMover : MonoBehaviour, IPreventable
 		CharacterSteer_NoReverse = 2
 	}
 
+	public enum PlaneComponent
+	{
+		All,
+		Plane,
+		Normal
+	}
+
 	Rigidbody body = null;
+	public Rigidbody Body => body;
 	PlayerAnimator anim = null;
 	[SerializeField]
 	MovementPlane plane = MovementPlane.XY;
@@ -112,6 +120,8 @@ public class PlayerMover : MonoBehaviour, IPreventable
 				break;
 		}
 
+		internalForce = OnPlane(internalForce);
+
 		if (internalForce.sqrMagnitude > 0)
 		{
 			var lookAt = internalForce.normalized;
@@ -133,20 +143,24 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			}
 		}
 
-		if (AttempingMoveForward(horizontal, vertical))
+
+		Vector3 attemptedVelocityAdd = (internalForce * Time.fixedDeltaTime) / body.mass;
+		var bodyVelocityOnPlane = OnPlane(body.velocity);
+		float addPortion = 0;
+		if (bodyVelocityOnPlane.sqrMagnitude < stats.maxSpeed * stats.maxSpeed)
 		{
-			body.AddForce(internalForce);
+			addPortion = 1 - Mathf.Clamp(attemptedVelocityAdd.magnitude / (stats.maxSpeed - bodyVelocityOnPlane.magnitude), 0, 1); 
 		}
 
-		if (body.velocity.sqrMagnitude > (stats.maxSpeed * stats.maxSpeed))
+		if (AttempingMoveForward(horizontal, vertical))
 		{
-			body.velocity = body.velocity.normalized * stats.maxSpeed;
+			body.AddForce(internalForce * addPortion);
 		}
 
 		if (!AttempingMoveForward(horizontal, vertical) && externalForce.sqrMagnitude < Helper.Epsilon)
 		{
 			var noDragVelocity = body.velocity;
-			body.velocity *= stats.dragFactor;
+			//body.velocity *= stats.dragFactor;
 
 			switch (plane)
 			{
@@ -185,9 +199,20 @@ public class PlayerMover : MonoBehaviour, IPreventable
 		return false;
 	}
 
-	public void ApplyExternalForce(Vector3 force)
+	public void ApplyExternalForce(Vector3 force, PlaneComponent planeComponent = PlaneComponent.All)
 	{
-		externalForce += force;
+		Vector3 relevantForce = force; 
+		switch (planeComponent)
+		{
+			case PlaneComponent.Plane:
+				relevantForce = OnPlane(force);
+				break;
+			case PlaneComponent.Normal:
+				relevantForce = OnPlaneNormal(force);
+				break;
+		}
+
+		externalForce += relevantForce;
 	}
 
 	public void SetMoveStats(MoveStats newStats)
@@ -208,6 +233,27 @@ public class PlayerMover : MonoBehaviour, IPreventable
 	void IPreventable.StopPrevent()
 	{
 		preventingControl = false;
+	}
+
+	Vector3 OnPlane(Vector3 toProject)
+	{
+		return toProject - OnPlaneNormal(toProject);
+	}
+
+	Vector3 OnPlaneNormal(Vector3 toProject)
+	{
+		Vector3 planeNormal = Vector3.zero;
+		switch (plane)
+		{
+			case MovementPlane.XY:
+				planeNormal = Vector3.forward;
+				break;
+			case MovementPlane.XZ:
+				planeNormal = Vector3.up;
+				break;
+		}
+
+		return Vector3.Project(toProject, planeNormal);
 	}
 }
 
