@@ -17,7 +17,7 @@ public class mushroom_script : MonoBehaviour
     private IEnumerator die()
     {
         lifeTime = lifeTime + Random.Range(lifeTime - 3f, lifeTime + 3f);
-        Debug.Log("dying");
+        //Debug.Log("dying");
         float timeAlive = 0f;
         while(timeAlive < lifeTime)
         {
@@ -40,7 +40,7 @@ public class mushroom_script : MonoBehaviour
     }
     private IEnumerator growroutine(float startScale)
     {
-        Debug.Log("growing");
+        //Debug.Log("growing");
         float scale = startScale;
         float timePassed = 0f;
         float finalScale = Random.Range(.5f, 2f);
