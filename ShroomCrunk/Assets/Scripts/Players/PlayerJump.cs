@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover), typeof(GroundTracker))]
 public class PlayerJump : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerJump : MonoBehaviour
 	[SerializeField] float extraJump = 1f;
 	[SerializeField] float extraDuration = 1f;
 	[SerializeField] bool requireJumpRelease = false;
+	[SerializeField] UnityEvent onJump = null;
 
 	float jumpRemaining = 0f;
 	bool readyToJump = true;
@@ -36,6 +38,7 @@ public class PlayerJump : MonoBehaviour
 				{
 					jumpRemaining = extraDuration;
 					jumpStrength = initialJump;
+					onJump.Invoke();
 				}
 				else
 				{

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMover : MonoBehaviour, IPreventable
@@ -27,13 +28,10 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 	Rigidbody body = null;
 	public Rigidbody Body => body;
-	private PlayerAnimator anim = null;
 	[SerializeField]
 	MovementPlane plane = MovementPlane.XY;
 	[SerializeField]
 	MovementType moveType = MovementType.ScreenWalk;
-	[SerializeField]
-	string moveAnimation = "Move";//todo this gonna break on jumping... maybe make a separate script for picking animations 
 	Vector3 horizontalAxis = Vector3.right;
 	Vector3 verticalAxis = Vector3.up;
 	Vector3 rotationAxis = Vector3.forward;
@@ -45,13 +43,13 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 	Vector3 externalForce = Vector3.zero;
 
+	[SerializeField] UnityEvent OnMoveBegin = null;
+	[SerializeField] UnityEvent OnMoveEnd = null;
+
+
 	private void Start()
 	{
 		body = GetComponent<Rigidbody>();
-		if (anim == null)
-		{
-			anim = GetComponent<PlayerAnimator>();
-		}
 
 		stats = defaultStats;
 
@@ -74,16 +72,12 @@ public class PlayerMover : MonoBehaviour, IPreventable
 		var horizontal = Input.GetAxis($"Horizontal");
 		var vertical = Input.GetAxis($"Vertical");
 
-
 		if (Mathf.Abs(horizontal) > Helper.Epsilon || Mathf.Abs(vertical) > Helper.Epsilon)
 		{
 			if (moving == false)
 			{
 				moving = true;
-				if (anim != null)
-				{
-					anim.StartAnimation(moveAnimation);
-				}
+				OnMoveBegin.Invoke();
 			}
 		}
 		else
@@ -91,10 +85,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			if (moving == true)
 			{
 				moving = false;
-				if (anim != null)
-				{
-					anim.StopAnimation(moveAnimation);
-				}
+				OnMoveEnd.Invoke();
 			}
 		}
 

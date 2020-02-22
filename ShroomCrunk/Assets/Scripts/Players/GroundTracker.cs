@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody))]
 public class GroundTracker : MonoBehaviour
 {
 	[SerializeField] string groundLayer = "Ground";
 	[SerializeField, Range(0, 90)] float maxIncline = 45f;
+	[SerializeField] UnityEvent onLanded = null;
 
 	List<Collider> groundHits = new List<Collider>();
 
@@ -14,6 +16,8 @@ public class GroundTracker : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
+		bool wasGrounded = Grounded;
+
 		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)) && !groundHits.Contains(collision.collider))
 		{
 			var minDot = Mathf.Cos((90 - maxIncline) * Mathf.Deg2Rad);
@@ -32,6 +36,11 @@ public class GroundTracker : MonoBehaviour
 			{
 				groundHits.Add(collision.collider);
 			}
+		}
+
+		if (Grounded && !wasGrounded)
+		{
+			onLanded.Invoke();
 		}
 	}
 

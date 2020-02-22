@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1927632780117341667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613848848520369017}
+  - component: {fileID: 2851590071802064411}
+  - component: {fileID: 529861260}
+  - component: {fileID: 529861262}
+  m_Layer: 0
+  m_Name: AnimationControls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613848848520369017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927632780117341667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8920661130635309572}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2851590071802064411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927632780117341667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faeece9b435664da886cc30787b9585a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 7416696950427671733}
+  moveParam: Hop
+  airborneMoveParam: 
+  groundTracker: {fileID: 8920661130635309568}
+--- !u!114 &529861260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927632780117341667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f712646ac71d84e6989a50bd766d9e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 7416696950427671733}
+  landedParam: 
+  groundTracker: {fileID: 8920661130635309568}
+--- !u!114 &529861262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927632780117341667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f423a3b1f1e417097d611ee9d50707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 7416696950427671733}
+  jumpParam: Jump
+  groundTracker: {fileID: 8920661130635309568}
 --- !u!1 &8920661130635309573
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +92,6 @@ GameObject:
   - component: {fileID: 8920661130635309571}
   - component: {fileID: 8920661130635309568}
   - component: {fileID: 8920661130635309569}
-  - component: {fileID: 2674562512798263551}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -34,6 +112,7 @@ Transform:
   m_Children:
   - {fileID: 8047572283033398638}
   - {fileID: 8920661130994174850}
+  - {fileID: 1613848848520369017}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -67,13 +146,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plane: 1
   moveType: 0
-  moveAnimation: Hop
   defaultStats:
     maxSpeed: 10
     acceleration: 100
     turnSpeed: 15
     dragFactor: 0.6
     forceForward: 0
+  OnMoveBegin:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2851590071802064411}
+        m_MethodName: Event_MoveBegin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMoveEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2851590071802064411}
+        m_MethodName: Event_MoveEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8920661130635309568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +194,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundLayer: Ground
   maxIncline: 45
+  onLanded:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 529861260}
+        m_MethodName: Event_Landed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8920661130635309569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,19 +225,20 @@ MonoBehaviour:
   extraJump: 0.5
   extraDuration: 0.3
   requireJumpRelease: 1
---- !u!114 &2674562512798263551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8920661130635309573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b3de76225164a61a738be9936dbf2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 7416696950427671733}
+  onJump:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 529861262}
+        m_MethodName: Event_Jump
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8920661130994174851
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +368,7 @@ PrefabInstance:
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
@@ -257,7 +378,7 @@ PrefabInstance:
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
@@ -272,7 +393,7 @@ PrefabInstance:
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 2388151781935170034, guid: 8e863c04ae88ef74195a7f94505f39a5,
         type: 3}
