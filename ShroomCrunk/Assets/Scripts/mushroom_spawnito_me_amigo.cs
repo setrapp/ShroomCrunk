@@ -10,25 +10,33 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     public float shroomGrowChance;
     public float grassGrowChance;
     private int mask;
-    private move_my_guy mmg;
     public float grassDeleteTime;
     public float mushroomDeleteTime;
+
+    //TODO remove
+    private move_my_guy mmg;
     
     public Transform raycasting_point;
+    bool spawning = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        mmg = GetComponent<move_my_guy>();
-        mask = LayerMask.GetMask("GrowSurface");
+        mask = LayerMask.GetMask("GrowSurface", "Ground");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (mmg.Movin)
+		// TODO: remove
+		if (mmg != null)
+		{
+			spawning = mmg.Movin;
+		}
+
+		if (spawning)
         {
-            RaycastHit hit;
+			RaycastHit hit;
             bool hit_some = Physics.Raycast(raycasting_point.position, randomDirection(), out hit, spawnRadius, mask);
             if (hit_some)
             {
@@ -83,4 +91,14 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     {
         return new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
     }
+
+	public void Event_SpawningBegin()
+	{
+		spawning = true;
+	}
+
+	public void Event_SpawningEnd()
+	{
+		spawning = false;
+	}
 }

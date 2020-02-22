@@ -79,6 +79,36 @@ MonoBehaviour:
   anim: {fileID: 7416696950427671733}
   jumpParam: Jump
   groundTracker: {fileID: 8920661130635309568}
+--- !u!1 &5096113504270402762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6436048906519231828}
+  m_Layer: 0
+  m_Name: RaycastPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6436048906519231828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096113504270402762}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.720398, y: 2.54, z: 1.4995048}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_Children: []
+  m_Father: {fileID: 8920661130635309572}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8920661130635309573
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +122,7 @@ GameObject:
   - component: {fileID: 8920661130635309571}
   - component: {fileID: 8920661130635309568}
   - component: {fileID: 8920661130635309569}
+  - component: {fileID: 4137150272076517361}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -113,6 +144,7 @@ Transform:
   - {fileID: 8047572283033398638}
   - {fileID: 8920661130994174850}
   - {fileID: 1613848848520369017}
+  - {fileID: 6436048906519231828}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -166,11 +198,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4137150272076517361}
+        m_MethodName: Event_SpawningBegin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnMoveEnd:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2851590071802064411}
         m_MethodName: Event_MoveEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4137150272076517361}
+        m_MethodName: Event_SpawningEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -239,6 +293,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &4137150272076517361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920661130635309573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6438077a8c39b543862d6fa9dabcb94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mushroom: {fileID: 6551062347166392413, guid: cba89186df732bc428a0b5c9c30b0760,
+    type: 3}
+  grass: {fileID: 6422158464006492181, guid: 2360608694b06b643ab1f4a566213dee, type: 3}
+  spawnRadius: 12
+  shroomGrowChance: 0.02
+  grassGrowChance: 0.25
+  grassDeleteTime: 10
+  mushroomDeleteTime: 30
+  raycasting_point: {fileID: 6436048906519231828}
 --- !u!1 &8920661130994174851
 GameObject:
   m_ObjectHideFlags: 0
