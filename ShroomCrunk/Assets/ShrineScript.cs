@@ -21,6 +21,8 @@ public class ShrineScript : MonoBehaviour
     public Animator canvasAnimator;
     public Animator shrineAnimator;
 
+	bool seen = false;
+
     private void Awake()
     {
         cinemachineBrain = FindObjectOfType<CinemachineBrain>();
@@ -32,16 +34,28 @@ public class ShrineScript : MonoBehaviour
 
     public void getTriggered()
     {
-        StartCoroutine(shrineEvent());
+		if (!seen)
+		{
+			StartCoroutine(shrineEvent());
+		}
+
+		RechargeSpores(true);
     }
 
-    private IEnumerator shrineEvent()
+	public void Leave()
+	{
+		RechargeSpores(false);
+	}
+
+
+	private IEnumerator shrineEvent()
     {
         yield return StartCoroutine(moveCamera());
         playAnimationsForShrineStuff();
         yield return StartCoroutine(playText());
         endAnimationsForShrineStuff();
         yield return StartCoroutine(moveCameraBack());
+		seen = true;
         yield return null;
     }
 
@@ -138,4 +152,9 @@ public class ShrineScript : MonoBehaviour
         }*/
         yield return new WaitForSeconds(1f);
     }
+
+	private void RechargeSpores(bool recharging)
+	{
+		playerMover.GetComponentInChildren<WaitForSpores>().canGenerate = recharging;
+	}
 }

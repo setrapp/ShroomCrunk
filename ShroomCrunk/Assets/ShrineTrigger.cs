@@ -16,5 +16,12 @@ public class ShrineTrigger : MonoBehaviour
             shrine.getTriggered();
         }
     }
+	private void OnTriggerExit(Collider other)
+	{
+		if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			shrine.Leave();
+		}
+	}
 
 }
