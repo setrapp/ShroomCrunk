@@ -11,7 +11,7 @@ public class GroundPound : MonoBehaviour
 	PlayerMover mover;
 	GroundTracker groundTracker;
 	bool poundReady = false;
-	bool pounding = false;
+	public bool Pounding { get; private set; } = false;
 	bool wasGrounded = false;
 
 	[SerializeField]
@@ -29,7 +29,7 @@ public class GroundPound : MonoBehaviour
 
 		if (poundInput > Helper.Epsilon)
 		{
-			if (!groundTracker.Grounded && poundReady && !pounding)
+			if (!groundTracker.Grounded && poundReady && !Pounding)
 			{
 				mover.Body.velocity = Vector3.zero;
 				bool waitForAnim = false;
@@ -47,14 +47,14 @@ public class GroundPound : MonoBehaviour
 					FinishPound();
 				}
 
-				pounding = true;
+				Pounding = true;
 				poundReady = false;
 			}
 		}
 
 		if ((groundTracker.Grounded && !wasGrounded) || mover.Body.velocity.y > 0)
 		{
-			pounding = false;
+			Pounding = false;
 
 			if (poundInput <= Helper.Epsilon)
 			{
@@ -67,7 +67,7 @@ public class GroundPound : MonoBehaviour
 
 	public void FinishPound()
 	{
-		pounding = true;
+		Pounding = true;
 		mover.ApplyExternalForce(Vector3.down * poundStrength, true);
 	}
 
@@ -78,7 +78,7 @@ public class GroundPound : MonoBehaviour
 
 	public void OnCollisionEnter(Collision collision)
 	{
-		if (pounding)
+		if (Pounding)
 		{
 			onPoundedGround.Invoke();
 		}

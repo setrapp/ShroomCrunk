@@ -33,15 +33,18 @@ public class ShroomBounceEffect : MonoBehaviour
 		}
 	}
 
-    public IEnumerator spawny_spawn()
+    public IEnumerator spawny_spawn(float multiplier = 1)
     {
         cooling = true;
         //Debug.Log("Starting coroutine");
         float timePassed = 0f;
         while(timePassed < spawnTime)
         {
-            Vector3 vec = -effectCenter.transform.up * finalSpawnRadius + Mathf.Lerp(initSpawnRadius, finalSpawnRadius, timePassed / spawnTime) * effectCenter.transform.forward;
-            for (int i = 0; i < spawnAmount; i++)
+			var superFinalSpawnRadius = finalSpawnRadius * multiplier;
+
+            Vector3 vec = -effectCenter.transform.up * superFinalSpawnRadius + Mathf.Lerp(initSpawnRadius, superFinalSpawnRadius, timePassed / spawnTime) * effectCenter.transform.forward;
+			var finalSpawnAmount = spawnAmount * multiplier;
+            for (int i = 0; i < finalSpawnAmount; i++)
             {
                 RaycastHit hit;
                 bool hitSumthin = Physics.Raycast(effectCenter.position, vec, out hit, 1000f, mask);
@@ -49,7 +52,7 @@ public class ShroomBounceEffect : MonoBehaviour
                 {
                     spawnGrass(hit);
                 }
-                vec = Quaternion.AngleAxis(((float)i / (float)spawnAmount + Random.Range(-.1f, .1f)) * 360, effectCenter.transform.up) * vec;
+                vec = Quaternion.AngleAxis(((float)i / (float)finalSpawnAmount + Random.Range(-.1f, .1f)) * 360, effectCenter.transform.up) * vec;
             }
             timePassed += Time.deltaTime;
             yield return null;
@@ -67,14 +70,14 @@ public class ShroomBounceEffect : MonoBehaviour
         }
         cooling = false;
     }
-    public void triggerEffect()
+    public void triggerEffect(float multiplier = 1)
     {
         particles.Play();
         audioSpeedUp?.AudioSpeed();
         shroomSounds.bounceSound();
         if (!cooling)
         {
-            StartCoroutine(spawny_spawn());
+            StartCoroutine(spawny_spawn(multiplier));
         }
         
     }

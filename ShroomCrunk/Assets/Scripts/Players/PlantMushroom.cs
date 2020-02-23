@@ -47,6 +47,7 @@ public class PlantMushroom : MonoBehaviour
 					sporesRemaining--;
 					var planted = Instantiate(mushroomToPlant.gameObject, groundTracker.RecentCollision.contacts[0].point, Quaternion.identity, decorContainer).GetComponent<mushroom_script>();
 					planted.growUp();
+					onPlant.Invoke();
 				}
 			}
 		}
@@ -54,6 +55,12 @@ public class PlantMushroom : MonoBehaviour
 
 	public void Event_AccumulateSpores(int addSpores)
 	{
+		float oldSpores = sporesRemaining;
 		sporesRemaining = Mathf.Min(sporesRemaining + addSpores, maxSporeCapacity);
+
+		if (sporesRemaining > oldSpores)
+		{
+			onAccumulate.Invoke();
+		}
 	}
 }
