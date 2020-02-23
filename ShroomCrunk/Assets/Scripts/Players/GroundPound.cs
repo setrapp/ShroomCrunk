@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(GroundTracker), typeof(PlayerMover))]
-public class GroundPound : MonoBehaviour
+public class GroundPound : MonoBehaviour, IPreventable
 {
 	[SerializeField] string poundAnimParam = null;
 	[SerializeField] float poundStrength = 100f;
@@ -13,6 +13,8 @@ public class GroundPound : MonoBehaviour
 	bool poundReady = false;
 	public bool Pounding { get; private set; } = false;
 	bool wasGrounded = false;
+
+	bool preventingControl = false;
 
 	[SerializeField]
 	UnityEvent onPoundedGround = null;
@@ -31,7 +33,7 @@ public class GroundPound : MonoBehaviour
 	{
 		var poundInput = Input.GetAxis("Jump");
 
-		if (poundInput > Helper.Epsilon)
+		if (poundInput > Helper.Epsilon && !preventingControl)
 		{
 			if (!groundTracker.Grounded && poundReady && !Pounding)
 			{
@@ -86,5 +88,15 @@ public class GroundPound : MonoBehaviour
 		{
 			onPoundedGround.Invoke();
 		}
+	}
+
+	void IPreventable.StartPrevent()
+	{
+		preventingControl = true;
+	}
+
+	void IPreventable.StopPrevent()
+	{
+		preventingControl = false;
 	}
 }

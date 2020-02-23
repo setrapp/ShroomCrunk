@@ -54,12 +54,12 @@ public class ShrineScript : MonoBehaviour
 
 	private IEnumerator shrineEvent()
     {
-        yield return StartCoroutine(moveCamera());
+		seen = true;
+		yield return StartCoroutine(moveCamera());
         playAnimationsForShrineStuff();
         yield return StartCoroutine(playText());
         endAnimationsForShrineStuff();
         yield return StartCoroutine(moveCameraBack());
-		seen = true;
         yield return null;
     }
 
@@ -75,8 +75,13 @@ public class ShrineScript : MonoBehaviour
     }
     private IEnumerator moveCamera()
     {
-        ((IPreventable)playerMover).StartPrevent();
-        if (cinemachineVirtualCamera != null)
+		var preventables = playerMover.GetComponents<IPreventable>();
+		foreach (var preventable in preventables)
+		{
+			preventable.StartPrevent();
+		}
+
+		if (cinemachineVirtualCamera != null)
         {
             cinemachineVirtualCamera.enabled = false;
             cinemachineBrain.enabled = false;
@@ -108,8 +113,12 @@ public class ShrineScript : MonoBehaviour
         }
         mainCam.gameObject.transform.position = initialCamPos;
         mainCam.gameObject.transform.rotation = initialCamRot;
-        ((IPreventable)playerMover).StopPrevent();
-        if (cinemachineVirtualCamera != null)
+		var preventables = playerMover.GetComponents<IPreventable>();
+		foreach (var preventable in preventables)
+		{
+			preventable.StopPrevent();
+		}
+		if (cinemachineVirtualCamera != null)
         {
             cinemachineBrain.enabled = true;
             cinemachineVirtualCamera.enabled = true;
@@ -159,6 +168,14 @@ public class ShrineScript : MonoBehaviour
 
 	private void RechargeSpores(bool recharging)
 	{
-		playerMover.GetComponentInChildren<WaitForSpores>().canGenerate = recharging;
+		if (recharging)
+		{
+			playerMover.GetComponentInChildren<WaitForSpores>().Event_DipAndWait(transform);
+		}
+		else
+		{
+			playerMover.GetComponentInChildren<WaitForSpores>().EndWait();
+
+		}
 	}
 }

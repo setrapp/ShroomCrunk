@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMover), typeof(GroundTracker))]
-public class PlayerJump : MonoBehaviour
+public class PlayerJump : MonoBehaviour, IPreventable
 {
 	[SerializeField] bool normalizeForMass = true;
 	[SerializeField] float initialJump = 10f;
@@ -20,6 +20,7 @@ public class PlayerJump : MonoBehaviour
 	PlayerMover mover = null;
 	GroundTracker groundTracker = null;
     CharacterAudio charaAudioJump;
+	bool preventingControl = false;
 
 	private void Start()
 	{
@@ -33,7 +34,7 @@ public class PlayerJump : MonoBehaviour
 		var jumpStrength = 0f;
 		var jump = Input.GetAxis($"Jump");
 
-		if (Mathf.Abs(jump) > Helper.Epsilon)
+		if (Mathf.Abs(jump) > Helper.Epsilon & !preventingControl)
 		{
             bool exclusiveForce = false;
    			if (groundTracker.Grounded)
@@ -80,5 +81,15 @@ public class PlayerJump : MonoBehaviour
 			jumpRemaining = 0;
 			onJumpReleased.Invoke();
 		}
+	}
+
+	void IPreventable.StartPrevent()
+	{
+		preventingControl = true;
+	}
+
+	void IPreventable.StopPrevent()
+	{
+		preventingControl = false;
 	}
 }
