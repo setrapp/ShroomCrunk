@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(GroundTracker), typeof(PlayerMover))]
 public class GroundPound : MonoBehaviour
 {
 	[SerializeField] string poundAnimParam = null;
 	[SerializeField] float poundStrength = 100f;
-	[SerializeField] mushroom_script mushroomToPlant;
+
 	PlayerMover mover;
 	GroundTracker groundTracker;
 	bool poundReady = false;
 	bool pounding = false;
 	bool wasGrounded = false;
+
+	[SerializeField]
+	UnityEvent onPoundedGround = null;
 
 	private void Start()
 	{
@@ -21,9 +25,11 @@ public class GroundPound : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetAxis("Jump") > Helper.Epsilon)
+		var poundInput = Input.GetAxis("Jump");
+
+		if (poundInput > Helper.Epsilon)
 		{
-			if (!groundTracker.Grounded && poundReady)
+			if (!groundTracker.Grounded && poundReady && !pounding)
 			{
 				mover.Body.velocity = Vector3.zero;
 				bool waitForAnim = false;
@@ -45,10 +51,15 @@ public class GroundPound : MonoBehaviour
 				poundReady = false;
 			}
 		}
-		else if ((groundTracker.Grounded && !wasGrounded) || mover.Body.velocity.y > 0)
+
+		if ((groundTracker.Grounded && !wasGrounded) || mover.Body.velocity.y > 0)
 		{
 			pounding = false;
-			poundReady = true;
+
+			if (poundInput <= Helper.Epsilon)
+			{
+				poundReady = true;
+			}
 		}
 
 		wasGrounded = groundTracker.Grounded;
@@ -69,11 +80,7 @@ public class GroundPound : MonoBehaviour
 	{
 		if (pounding)
 		{
-			if (mushroomToPlant != null)
-			{
-				var planted = Instantiate(mushroomToPlant.gameObject, collision.contacts[0].point, Quaternion.identity).GetComponent<mushroom_script>();
-				planted.growUp();
-			}
+			onPoundedGround.Invoke();
 		}
 	}
 }

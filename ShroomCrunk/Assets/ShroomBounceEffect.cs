@@ -14,19 +14,25 @@ public class ShroomBounceEffect : MonoBehaviour
     private int mask;
     public ShroomSoundScript shroomSounds;
 
-    public float cooldown;
+	public Transform decorContainer = null;
+
+	public float cooldown;
     private bool cooling;
     private void Start()
     {
         cooling = false;
         mask = LayerMask.GetMask("GrowSurface", "Ground");
-        //StartCoroutine(spawny_spawn());
-    }
+		//StartCoroutine(spawny_spawn());
+		if (decorContainer == null)
+		{
+			decorContainer = GameObject.FindWithTag("DecorContainer")?.transform;
+		}
+	}
 
     public IEnumerator spawny_spawn()
     {
         cooling = true;
-        Debug.Log("Starting coroutine");
+        //Debug.Log("Starting coroutine");
         float timePassed = 0f;
         while(timePassed < spawnTime)
         {
@@ -71,7 +77,7 @@ public class ShroomBounceEffect : MonoBehaviour
     private bool spawnGrass(RaycastHit hit)
     {
         Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), hit.normal);
-        GameObject instance = Instantiate(thingThatYouAreSpawning, hit.point, rot);
+        GameObject instance = Instantiate(thingThatYouAreSpawning, hit.point, rot, decorContainer);
         grass_script grasScript = instance.GetComponent<grass_script>();
         if (grasScript != null)
         {

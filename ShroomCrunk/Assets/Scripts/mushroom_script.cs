@@ -4,14 +4,18 @@ using UnityEngine;
 
 public abstract class baseSpawningThing : MonoBehaviour
 {
+	[SerializeField] Animator anim = null;
     public float growTime = 2f;
     public float lifeTime = 30f;
 	public float deathTime = 2f;
     public void growUp()
     {
-        float growStartScale = .001f;
-        transform.localScale = new Vector3(.001f, .001f, .001f);
-        StartCoroutine(growroutine(growStartScale));
+		if (anim == null)
+		{
+			float growStartScale = .001f;
+			transform.localScale = new Vector3(.001f, .001f, .001f);
+			StartCoroutine(growroutine(growStartScale));
+		}
         StartCoroutine(die());
     }
 

@@ -14,7 +14,7 @@ public class GroundTracker : MonoBehaviour
 	[SerializeField] UnityEvent onUnlanded = null;
 
 
-	List<Collider> groundHits = new List<Collider>();
+	List<Collision> groundHits = new List<Collision>();
 
 	public bool Grounded { get { return groundHits.Count > 0; } }
 
@@ -25,7 +25,7 @@ public class GroundTracker : MonoBehaviour
 			Vector3 normal = (zNormal ? Vector3.forward : Vector3.up);
 			if (Grounded)
 			{
-				normal = zNormal ? groundHits[groundHits.Count - 1].transform.forward : groundHits[groundHits.Count - 1].transform.up;
+				normal = groundHits[groundHits.Count - 1].contacts[0].normal;
 			}
 
 			normal *= (invertNormal ? -1 : 1);
@@ -33,11 +33,39 @@ public class GroundTracker : MonoBehaviour
 		}
 	}
 
+	public Vector3 GroundPoint
+	{
+		get
+		{
+			Vector3 point = Vector3.zero;
+			if (Grounded)
+			{
+				point = groundHits[groundHits.Count - 1].contacts[0].point;
+			}
+
+			return point;
+		}
+	}
+
+	public int GroundLayer
+	{
+		get
+		{
+			var layer = 0;
+			if (Grounded)
+			{
+				layer = groundHits[groundHits.Count - 1].collider.gameObject.layer;
+			}
+
+			return layer;
+		}
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		bool wasGrounded = Grounded;
 
-		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)) && !groundHits.Contains(collision.collider))
+		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)) && !trackingCollider(collision.collider))
 		{
 			var minDot = Mathf.Cos(maxIncline * Mathf.Deg2Rad);
 			bool hasVerticalContact = false;
@@ -57,7 +85,7 @@ public class GroundTracker : MonoBehaviour
 
 			if (hasVerticalContact)
 			{
-				groundHits.Add(collision.collider);
+				groundHits.Add(collision);
 			}
 		}
 
@@ -72,9 +100,17 @@ public class GroundTracker : MonoBehaviour
 		bool wasGrounded = Grounded;
 		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)))
 		{
-			if (groundHits.Contains(collision.collider))
+			if (trackingCollider(collision.collider))
 			{
-				groundHits.Remove(collision.collider);
+				for(int i = 0; i < groundHits.Count; i++)
+				{
+					var trackedCollision = groundHits[i];
+					if (trackedCollision.collider == collision.collider)
+					{
+						groundHits.RemoveAt(i);
+						i--;
+					}
+				}
 			}
 		}
 
@@ -82,5 +118,17 @@ public class GroundTracker : MonoBehaviour
 		{
 			onUnlanded.Invoke();
 		}
+	}
+
+	bool trackingCollider(Collider collider)
+	{
+		foreach (var collision in groundHits)
+		{
+			if (collision.collider == collider)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

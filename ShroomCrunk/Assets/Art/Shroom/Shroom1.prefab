@@ -5077,6 +5077,7 @@ MonoBehaviour:
   spawnAmount: 4
   particles: {fileID: 1050750433}
   shroomSounds: {fileID: 669144073}
+  decorContainer: {fileID: 0}
   cooldown: 10
 --- !u!1 &4651361345104319850
 GameObject:
@@ -5239,6 +5240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef80c222eb39a414e9de05617d1ff0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 8195634153517492894}
   growTime: 2
   lifeTime: 20
   deathTime: 2

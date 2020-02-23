@@ -15,15 +15,20 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     public float minMushroomSpawnDistance;
     public ParticleSystem particles;
     public GrowSoundScript spawnSounds;
-        
     public Transform raycasting_point;
     bool spawning = false;
+
+	public Transform decorContainer = null;
 
     // Start is called before the first frame update
     void Start()
     {
         mask = LayerMask.GetMask("GrowSurface", "Ground");
-    }
+		if (decorContainer == null)
+		{
+			decorContainer = GameObject.FindWithTag("DecorContainer")?.transform;
+		}
+	}
 
     // Update is called once per frame
     void Update()
@@ -57,7 +62,7 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     private bool spawnGrass(RaycastHit hit)
     {
         Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), hit.normal);
-        GameObject instance = Instantiate(grass, hit.point, rot);
+        GameObject instance = Instantiate(grass, hit.point, rot, decorContainer);
         grass_script grasScript= instance.GetComponent<grass_script>();
         if (grasScript != null)
         {
@@ -71,7 +76,7 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     }
     private bool spawnMushroom(RaycastHit hit)
     {
-        GameObject instance = Instantiate(mushroom, hit.point, Quaternion.identity);
+        GameObject instance = Instantiate(mushroom, hit.point, Quaternion.identity, decorContainer);
         instance.transform.up = hit.normal;
         mushroom_script mushScript = instance.GetComponent<mushroom_script>();
         if(mushScript != null)
