@@ -250,6 +250,7 @@ MonoBehaviour:
   - Ascend. For there are many things to learn
   - You have the ability to plant springy mushrooms
   - Jump! and jump again in the air to do so...
+  - If you run out of mushrooms, come back to me
   text: {fileID: 0}
   shrineCamPos: {fileID: 5936471750979960059}
   camMoveTime: 2
