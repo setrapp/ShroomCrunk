@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ShroomBounceEffect : MonoBehaviour
 {
+
+    public MainAudio audioSpeedUp;
+
     public Transform effectCenter;
     public GameObject thingThatYouAreSpawning;
     public float initSpawnRadius;
@@ -20,6 +23,7 @@ public class ShroomBounceEffect : MonoBehaviour
     private bool cooling;
     private void Start()
     {
+        audioSpeedUp = GameObject.Find("Audio").GetComponent<MainAudio>();
         cooling = false;
         mask = LayerMask.GetMask("GrowSurface", "Ground");
 		//StartCoroutine(spawny_spawn());
@@ -66,6 +70,7 @@ public class ShroomBounceEffect : MonoBehaviour
     public void triggerEffect()
     {
         particles.Play();
+        audioSpeedUp.AudioSpeed();
         shroomSounds.bounceSound();
         if (!cooling)
         {
