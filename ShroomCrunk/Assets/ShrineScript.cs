@@ -193,7 +193,7 @@ public class ShrineScript : MonoBehaviour
                 if(lettersPassed > 0)
                 {
                     timePassed -= lettersPassed * timePerLetter;
-                    stringIndex += lettersPassed;
+                    stringIndex = Mathf.Min(stringIndex + lettersPassed, currentBlurb.Length);
                     text.text = currentBlurb.Substring(0, stringIndex);
                 }
                 yield return null;
