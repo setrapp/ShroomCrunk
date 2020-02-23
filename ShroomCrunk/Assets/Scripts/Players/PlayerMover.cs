@@ -303,7 +303,7 @@ public class PlayerMover : MonoBehaviour, IPreventable
 	{
 		stats = defaultStats;
 	}
-
+    
 	void IPreventable.StartPrevent()
 	{
 		preventingControl = true;
