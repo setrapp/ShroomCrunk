@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 using TMPro;
 
 public class ShrineScript : MonoBehaviour
@@ -15,9 +16,13 @@ public class ShrineScript : MonoBehaviour
     private Quaternion initialCamRot;
     private PlayerMover playerMover;
     public int lettersScrolledPerSecond = 5;
+    private CinemachineBrain cinemachineBrain;
+    private CinemachineVirtualCamera cinemachineVirtualCamera;
 
     private void Awake()
     {
+        cinemachineBrain = FindObjectOfType<CinemachineBrain>();
+        cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         mainCam = Camera.main;
         text.text = "";
         playerMover = FindObjectOfType<PlayerMover>();
@@ -26,11 +31,6 @@ public class ShrineScript : MonoBehaviour
     public void getTriggered()
     {
         StartCoroutine(shrineEvent());
-    }
-
-    public void getUntriggered()
-    {
-           
     }
 
     private IEnumerator shrineEvent()
@@ -44,6 +44,8 @@ public class ShrineScript : MonoBehaviour
     private IEnumerator moveCamera()
     {
         ((IPreventable)playerMover).StartPrevent();
+        cinemachineVirtualCamera.enabled = false;
+        cinemachineBrain.enabled = false;
         float timePassed = 0f;
         initialCamPos = mainCam.gameObject.transform.position;
         initialCamRot = mainCam.gameObject.transform.rotation;
@@ -72,6 +74,8 @@ public class ShrineScript : MonoBehaviour
         mainCam.gameObject.transform.position = initialCamPos;
         mainCam.gameObject.transform.rotation = initialCamRot;
         ((IPreventable)playerMover).StopPrevent();
+        cinemachineBrain.enabled = true;
+        cinemachineVirtualCamera.enabled = true;
         yield return null;
     }
 
