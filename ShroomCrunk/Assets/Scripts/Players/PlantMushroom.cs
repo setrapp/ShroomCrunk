@@ -6,6 +6,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(GroundTracker))]
 public class PlantMushroom : MonoBehaviour
 {
+	[System.Serializable]
+	public class IntEvent : UnityEvent<int> { }
 
 	[SerializeField] mushroom_script mushroomToPlant;
 	GroundTracker groundTracker = null;
@@ -17,8 +19,8 @@ public class PlantMushroom : MonoBehaviour
 
 	public Transform decorContainer = null;
 
-	[SerializeField] UnityEvent onAccumulate = null;
-	[SerializeField] UnityEvent onPlant = null;
+	[SerializeField] IntEvent onAccumulate = null;
+	[SerializeField] IntEvent onPlant = null;
 
 	private void Start()
 	{
@@ -29,7 +31,7 @@ public class PlantMushroom : MonoBehaviour
 			decorContainer = GameObject.FindWithTag("DecorContainer")?.transform;
 		}
 
-		sporesRemaining = maxSporeCapacity;
+		Event_AccumulateSpores(maxSporeCapacity);
 	}
 
 	public void Event_AttemptPlant()
@@ -47,7 +49,7 @@ public class PlantMushroom : MonoBehaviour
 					sporesRemaining--;
 					var planted = Instantiate(mushroomToPlant.gameObject, groundTracker.RecentCollision.contacts[0].point, Quaternion.identity, decorContainer).GetComponent<mushroom_script>();
 					planted.growUp();
-					onPlant.Invoke();
+					onPlant.Invoke(1);
 				}
 			}
 		}
@@ -60,7 +62,7 @@ public class PlantMushroom : MonoBehaviour
 
 		if (sporesRemaining > oldSpores)
 		{
-			onAccumulate.Invoke();
+			onAccumulate.Invoke(addSpores);
 		}
 	}
 }
