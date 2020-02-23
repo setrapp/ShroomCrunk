@@ -18,6 +18,8 @@ public class ShrineScript : MonoBehaviour
     public int lettersScrolledPerSecond = 5;
     private CinemachineBrain cinemachineBrain;
     private CinemachineVirtualCamera cinemachineVirtualCamera;
+    public Animator canvasAnimator;
+    public Animator shrineAnimator;
 
     private void Awake()
     {
@@ -36,11 +38,23 @@ public class ShrineScript : MonoBehaviour
     private IEnumerator shrineEvent()
     {
         yield return StartCoroutine(moveCamera());
+        playAnimationsForShrineStuff();
         yield return StartCoroutine(playText());
+        endAnimationsForShrineStuff();
         yield return StartCoroutine(moveCameraBack());
         yield return null;
     }
 
+    private void endAnimationsForShrineStuff()
+    {
+        shrineAnimator.SetBool("Cinematico", false);
+        canvasAnimator.SetBool("CinematicoUI", false);
+    }
+    private void playAnimationsForShrineStuff()
+    {
+        shrineAnimator.SetBool("Cinematico", true);
+        canvasAnimator.SetBool("CinematicoUI", true);
+    }
     private IEnumerator moveCamera()
     {
         ((IPreventable)playerMover).StartPrevent();
