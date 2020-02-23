@@ -12,6 +12,7 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     private int mask;
     public float grassDeleteTime;
     public float mushroomDeleteTime;
+    public float minMushroomSpawnDistance;
         
     public Transform raycasting_point;
     bool spawning = false;
@@ -34,9 +35,11 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
             {
                 //Debug.Log(hit.point);
                 float roll = Random.Range(0f, 1f);
+                Vector3 vecToHit = hit.point - transform.position;
                 if (roll < shroomGrowChance)
                 {
-                    if (Vector3.SqrMagnitude(hit.point - transform.position) > 36)
+                    if (Vector3.SqrMagnitude(vecToHit) > minMushroomSpawnDistance * minMushroomSpawnDistance &&
+                        Vector3.Dot(vecToHit, transform.forward) < .3f)
                     {
                         spawnMushroom(hit);
                     }
@@ -66,8 +69,8 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     }
     private bool spawnMushroom(RaycastHit hit)
     {
-        Quaternion rot = Quaternion.AngleAxis(Random.Range(0f, 360f), hit.normal);
-        GameObject instance = Instantiate(mushroom, hit.point, rot);
+        GameObject instance = Instantiate(mushroom, hit.point, Quaternion.identity);
+        instance.transform.up = hit.normal;
         mushroom_script mushScript = instance.GetComponent<mushroom_script>();
         if(mushScript != null)
         {
