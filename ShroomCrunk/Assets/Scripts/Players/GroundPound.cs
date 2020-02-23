@@ -17,6 +17,10 @@ public class GroundPound : MonoBehaviour
 	[SerializeField]
 	UnityEvent onPoundedGround = null;
 
+	public Vector3? PoundStart { get; private set; } = null;
+
+	[SerializeField] Animator anim = null;
+
 	private void Start()
 	{
 		mover = GetComponent<PlayerMover>();
@@ -35,7 +39,6 @@ public class GroundPound : MonoBehaviour
 				bool waitForAnim = false;
 				if (!string.IsNullOrEmpty(poundAnimParam))
 				{
-					var anim = GetComponent<Animator>();
 					if (anim != null)
 					{
 						anim.SetTrigger(poundAnimParam);
@@ -47,6 +50,7 @@ public class GroundPound : MonoBehaviour
 					FinishPound();
 				}
 
+				PoundStart = transform.position;
 				Pounding = true;
 				poundReady = false;
 			}

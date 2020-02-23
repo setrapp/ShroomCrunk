@@ -22,7 +22,18 @@ public class ShroomBounce : MonoBehaviour
 
 			var pounding = groundPound.Pounding ? groundBoundFactor : 1;
 
-			mover.ApplyExternalForce(Vector3.up * bounciness * pounding, true);
+			var bounceForce = Vector3.up * bounciness * pounding;
+			if (groundPound.PoundStart != null)
+			{
+				Vector3 toPoundStart = Vector3.Project(groundPound.PoundStart.Value - mover.transform.position, Vector3.up);
+				var forceToPound = toPoundStart * mover.Body.mass;
+				if (forceToPound.sqrMagnitude > bounceForce.sqrMagnitude)
+				{
+					bounceForce = forceToPound;
+				}
+			}
+
+			mover.ApplyExternalForce(bounceForce, true);
 
 			var anim = GetComponentInParent<Animator>();
 			if (anim != null)

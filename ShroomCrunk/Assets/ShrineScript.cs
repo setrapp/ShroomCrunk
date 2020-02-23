@@ -29,10 +29,14 @@ public class ShrineScript : MonoBehaviour
         cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         mainCam = Camera.main;
         text.text = "";
-        playerMover = FindObjectOfType<PlayerMover>();
     }
 
-    public void getTriggered()
+	private void Start()
+	{
+		playerMover = GameObject.FindWithTag("Player").GetComponent<PlayerMover>();
+	}
+
+	public void getTriggered()
     {
 		if (!seen)
 		{
