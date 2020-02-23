@@ -5155,6 +5155,7 @@ MonoBehaviour:
   groundTracker: {fileID: 8920661130635309568}
   defaultStats:
     maxSpeed: 30
+    fallTerminalVelocity: 60
     acceleration: 100
     turnSpeed: 5
     dragFactor: 0.6
@@ -5418,6 +5419,12 @@ MonoBehaviour:
   maxSporeCapacity: 10
   sporesRemaining: 0
   decorContainer: {fileID: 0}
+  onAccumulate:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlant:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8920661130994174851
 GameObject:
   m_ObjectHideFlags: 0

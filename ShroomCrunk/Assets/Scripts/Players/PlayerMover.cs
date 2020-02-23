@@ -86,7 +86,15 @@ public class PlayerMover : MonoBehaviour, IPreventable
 				}
 				else
 				{
-					up = Vector3.up;// TODO This should be fixed for both planes
+					switch (defaultMovePlane)
+					{
+						case MovementPlane.XY:
+							up = Vector3.forward;
+							break;
+						case MovementPlane.XZ:
+							up = Vector3.up;
+							break;
+					}
 				}
 			}
 
@@ -214,6 +222,23 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			}
 		}
 
+		// Don't fall too fast.
+		switch (defaultMovePlane)
+		{
+			case MovementPlane.XY:
+				if (body.velocity.z < -stats.fallTerminalVelocity)
+				{
+					body.velocity = new Vector3(body.velocity.x, body.velocity.y, -stats.fallTerminalVelocity);
+				}
+				break;
+			case MovementPlane.XZ:
+				if (body.velocity.y < -stats.fallTerminalVelocity)
+				{
+					body.velocity = new Vector3(body.velocity.x, -stats.fallTerminalVelocity, body.velocity.z);
+				}
+				break;
+		}
+
 		externalForce = Vector3.zero;
 	}
 
@@ -305,6 +330,8 @@ public class MoveStats
 {
 	[SerializeField]
 	public float maxSpeed = 10f;
+	[SerializeField]
+	public float fallTerminalVelocity = 50f;
 	[SerializeField]
 	public float acceleration = 100f;
 	[SerializeField, Tooltip("Degrees Per Frame")]
