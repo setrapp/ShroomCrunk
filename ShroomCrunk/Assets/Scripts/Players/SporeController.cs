@@ -8,7 +8,7 @@ public class SporeController : MonoBehaviour
 	List<GameObject> onSpores = null;
 	List<GameObject> offSpores = null;
 
-	private void Start()
+	private void Awake()
 	{
 		onSpores = new List<GameObject>();
 		offSpores = new List<GameObject>();
