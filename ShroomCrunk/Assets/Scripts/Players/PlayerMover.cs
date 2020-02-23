@@ -142,8 +142,6 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			}
 		}
 
-		body.AddForce(externalForce, ForceMode.Impulse);
-
 		var internalForce = Vector3.zero;
 		switch (moveType)
 		{
@@ -192,19 +190,21 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			}
 		}
 
-
 		Vector3 attemptedVelocityAdd = (internalForce * Time.fixedDeltaTime) / body.mass;
 		var bodyVelocityOnPlane = OnPlane(body.velocity);
-		float addPortion = 0;
-		if (bodyVelocityOnPlane.sqrMagnitude < stats.maxSpeed * stats.maxSpeed)
-		{
-			addPortion = 1 - Mathf.Clamp(attemptedVelocityAdd.magnitude / (stats.maxSpeed - bodyVelocityOnPlane.magnitude), 0, 1);
-		}
 
 		if (AttempingMoveForward(horizontal, vertical))
 		{
-			body.AddForce(internalForce * addPortion);
+			body.AddForce(internalForce);
 		}
+
+		if (bodyVelocityOnPlane.sqrMagnitude > stats.maxSpeed * stats.maxSpeed)
+		{
+			bodyVelocityOnPlane = bodyVelocityOnPlane.normalized * stats.maxSpeed;
+			body.velocity = bodyVelocityOnPlane + OnPlaneNormal(body.velocity);
+		}
+
+		body.AddForce(externalForce, ForceMode.Impulse);
 
 		if (!AttempingMoveForward(horizontal, vertical) && externalForce.sqrMagnitude < Helper.Epsilon)
 		{

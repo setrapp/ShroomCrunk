@@ -44,8 +44,11 @@ public class ShrineScript : MonoBehaviour
     private IEnumerator moveCamera()
     {
         ((IPreventable)playerMover).StartPrevent();
-        cinemachineVirtualCamera.enabled = false;
-        cinemachineBrain.enabled = false;
+        if (cinemachineVirtualCamera != null)
+        {
+            cinemachineVirtualCamera.enabled = false;
+            cinemachineBrain.enabled = false;
+        }
         float timePassed = 0f;
         initialCamPos = mainCam.gameObject.transform.position;
         initialCamRot = mainCam.gameObject.transform.rotation;
@@ -74,8 +77,11 @@ public class ShrineScript : MonoBehaviour
         mainCam.gameObject.transform.position = initialCamPos;
         mainCam.gameObject.transform.rotation = initialCamRot;
         ((IPreventable)playerMover).StopPrevent();
-        cinemachineBrain.enabled = true;
-        cinemachineVirtualCamera.enabled = true;
+        if (cinemachineVirtualCamera != null)
+        {
+            cinemachineBrain.enabled = true;
+            cinemachineVirtualCamera.enabled = true;
+        }
         yield return null;
     }
 
