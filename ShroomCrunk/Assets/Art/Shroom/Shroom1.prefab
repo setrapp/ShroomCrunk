@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &318761115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 318761116}
+  m_Layer: 0
+  m_Name: EffectCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &318761116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318761115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 8.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7832135398558847566}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574085617141259863
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +104,7 @@ GameObject:
   - component: {fileID: 8457364107105440874}
   - component: {fileID: 7923492922633785569}
   - component: {fileID: 6956658417499501277}
+  - component: {fileID: 1954961860}
   m_Layer: 0
   m_Name: Bouncer
   m_TagString: Untagged
@@ -129,7 +160,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8c8fbac974e4556803ecd44ea442a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bounciness: 75
+  bounciness: 50
+--- !u!114 &1954961860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170835810442177067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2787d20990c4d6f4691bb3a85101d8fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectCenter: {fileID: 318761116}
+  thingThatYouAreSpawning: {fileID: 6422158464006492181, guid: 2360608694b06b643ab1f4a566213dee,
+    type: 3}
+  initSpawnRadius: 0.1
+  finalSpawnRadius: 2
+  spawnTime: 0.2
+  spawnAmount: 4
+  cooldown: 10
 --- !u!1 &4651361345104319850
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +298,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6551062347166392413}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.1023724, y: -0.30181694, z: 1.7197275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -255,6 +306,7 @@ Transform:
   - {fileID: 5775925348094049168}
   - {fileID: 772921168739365265}
   - {fileID: 529494167456971865}
+  - {fileID: 318761116}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -289,9 +341,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef80c222eb39a414e9de05617d1ff0ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growTime: 0.2
+  growTime: 2
   lifeTime: 20
-  deathTime: 2
 --- !u!1 &6799392597650119517
 GameObject:
   m_ObjectHideFlags: 0

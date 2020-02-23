@@ -12,14 +12,19 @@ public class ShroomBounceEffect : MonoBehaviour
     public int spawnAmount;
     private int mask;
 
+    public float cooldown;
+    private bool cooling;
     private void Start()
     {
-        //mask = LayerMask.GetMask("GrowSurface", "Ground");
-        StartCoroutine(spawny_spawn());
+        cooling = false;
+        mask = LayerMask.GetMask("GrowSurface", "Ground");
+        //StartCoroutine(spawny_spawn());
     }
 
     public IEnumerator spawny_spawn()
     {
+        cooling = true;
+        Debug.Log("Starting coroutine");
         float timePassed = 0f;
         while(timePassed < spawnTime)
         {
@@ -30,7 +35,6 @@ public class ShroomBounceEffect : MonoBehaviour
                 bool hitSumthin = Physics.Raycast(effectCenter.position, vec, out hit, 1000f, mask);
                 if (hitSumthin)
                 {
-                    Debug.Log("HIT");
                     spawnGrass(hit);
                 }
                 vec = Quaternion.AngleAxis(((float)i / (float)spawnAmount + Random.Range(-.1f, .1f)) * 360, effectCenter.transform.up) * vec;
@@ -38,12 +42,26 @@ public class ShroomBounceEffect : MonoBehaviour
             timePassed += Time.deltaTime;
             yield return null;
         }
-        yield return null;
+        yield return coolDownPeriod();
     }
 
+    private IEnumerator coolDownPeriod()
+    {
+        float timePassed = 0f;
+        while (timePassed < cooldown)
+        {
+            timePassed += Time.deltaTime;
+            yield return null;
+        }
+        cooling = false;
+    }
     public void triggerEffect()
     {
-        StartCoroutine(spawny_spawn());
+        if (!cooling)
+        {
+            StartCoroutine(spawny_spawn());
+        }
+        
     }
 
     private bool spawnGrass(RaycastHit hit)
