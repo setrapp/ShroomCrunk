@@ -127,10 +127,13 @@ public class PlayerMover : MonoBehaviour, IPreventable
 
 		if (Mathf.Abs(horizontal) > Helper.Epsilon || Mathf.Abs(vertical) > Helper.Epsilon)
 		{
-			if (moving == false)
+			if (!preventingControl)
 			{
-				moving = true;
-				OnMoveBegin.Invoke();
+				if (moving == false)
+				{
+					moving = true;
+					OnMoveBegin.Invoke();
+				}
 			}
 		}
 		else
