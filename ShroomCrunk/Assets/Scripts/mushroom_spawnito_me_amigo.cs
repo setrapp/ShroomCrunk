@@ -13,6 +13,7 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     public float grassDeleteTime;
     public float mushroomDeleteTime;
     public float minMushroomSpawnDistance;
+    public ParticleSystem particles;
         
     public Transform raycasting_point;
     bool spawning = false;
@@ -90,10 +91,12 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
 	public void Event_SpawningBegin()
 	{
 		spawning = true;
+        particles.Play();
 	}
 
 	public void Event_SpawningEnd()
 	{
 		spawning = false;
+        particles.Stop();
 	}
 }

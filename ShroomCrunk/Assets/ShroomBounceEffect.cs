@@ -10,6 +10,7 @@ public class ShroomBounceEffect : MonoBehaviour
     public float finalSpawnRadius;
     public float spawnTime;
     public int spawnAmount;
+    public ParticleSystem particles;
     private int mask;
 
     public float cooldown;
@@ -57,6 +58,7 @@ public class ShroomBounceEffect : MonoBehaviour
     }
     public void triggerEffect()
     {
+        particles.Play();
         if (!cooling)
         {
             StartCoroutine(spawny_spawn());
