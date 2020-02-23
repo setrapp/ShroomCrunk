@@ -19,10 +19,12 @@ public class PlayerJump : MonoBehaviour
 
 	PlayerMover mover = null;
 	GroundTracker groundTracker = null;
+    CharacterAudio charaAudioJump;
 
 	private void Start()
 	{
-		mover = GetComponent<PlayerMover>();
+        charaAudioJump = GetComponentInChildren<CharacterAudio>();
+        mover = GetComponent<PlayerMover>();
 		groundTracker = GetComponent<GroundTracker>();
 	}
 
@@ -33,12 +35,14 @@ public class PlayerJump : MonoBehaviour
 
 		if (Mathf.Abs(jump) > Helper.Epsilon)
 		{
-			bool exclusiveForce = false;
+            bool exclusiveForce = false;
    			if (groundTracker.Grounded)
 			{
 				if (readyToJump)
 				{
-					jumpRemaining = extraDuration;
+                    charaAudioJump.JumpAudio();
+
+                    jumpRemaining = extraDuration;
 					jumpStrength = initialJump;
 					exclusiveForce = true;
 					onJump.Invoke();

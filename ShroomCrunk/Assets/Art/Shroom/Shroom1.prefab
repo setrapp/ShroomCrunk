@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &669144072
 Transform:
   m_ObjectHideFlags: 0
@@ -5068,6 +5068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2787d20990c4d6f4691bb3a85101d8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSpeedUp: {fileID: 0}
   effectCenter: {fileID: 318761116}
   thingThatYouAreSpawning: {fileID: 6422158464006492181, guid: 2360608694b06b643ab1f4a566213dee,
     type: 3}

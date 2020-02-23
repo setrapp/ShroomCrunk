@@ -13,6 +13,6 @@ public class ShroomSoundScript : MonoBehaviour
 
     public void bounceSound()
     {
-        source.Play();
+  //      source.Play();
     }
 }
