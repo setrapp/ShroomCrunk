@@ -19,6 +19,8 @@ public class ShroomBounceEffect : MonoBehaviour
 
 	public Transform decorContainer = null;
 
+	public bool triggerEffectOnFrame = false;
+
 	public float cooldown;
     private bool cooling;
     private void Start()
@@ -33,7 +35,16 @@ public class ShroomBounceEffect : MonoBehaviour
 		}
 	}
 
-    public IEnumerator spawny_spawn(float multiplier = 1)
+	private void Update()
+	{
+		if (triggerEffectOnFrame)
+		{
+			triggerEffect();
+			triggerEffectOnFrame = false;
+		}
+	}
+
+	public IEnumerator spawny_spawn(float multiplier = 1)
     {
         cooling = true;
         //Debug.Log("Starting coroutine");
@@ -72,9 +83,12 @@ public class ShroomBounceEffect : MonoBehaviour
     }
     public void triggerEffect(float multiplier = 1)
     {
-        particles.Play();
+		if (particles != null)
+		{
+			particles?.Play();
+		}
         audioSpeedUp?.AudioSpeed();
-        shroomSounds.bounceSound();
+        shroomSounds?.bounceSound();
         if (!cooling)
         {
             StartCoroutine(spawny_spawn(multiplier));

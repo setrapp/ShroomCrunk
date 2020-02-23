@@ -21,14 +21,24 @@ public class ShrineScript : MonoBehaviour
     public Animator canvasAnimator;
     public Animator shrineAnimator;
 
-	bool seen = false;
+	public Animator preCameraMoveAnimator;
+	public Transform lateCamPos;
+	bool waitingToMoveCamera = false;
+
+	public bool ending = false;
+
+	public bool seen = false;
 
     private void Awake()
     {
         cinemachineBrain = FindObjectOfType<CinemachineBrain>();
         cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         mainCam = Camera.main;
-        text.text = "";
+
+		if (!ending)
+		{
+			text.text = "";
+		}
     }
 
 	private void Start()
@@ -57,11 +67,20 @@ public class ShrineScript : MonoBehaviour
 		seen = true;
 		yield return StartCoroutine(moveCamera());
         playAnimationsForShrineStuff();
-        yield return StartCoroutine(playText());
-        endAnimationsForShrineStuff();
-        yield return StartCoroutine(moveCameraBack());
-        yield return null;
-    }
+
+		if (!ending)
+		{
+			yield return StartCoroutine(playText());
+			endAnimationsForShrineStuff();
+			yield return StartCoroutine(moveCameraBack());
+			yield return null;
+		}
+		else
+		{
+			// TODO ending
+		}
+		yield return null;
+	}
 
     private void endAnimationsForShrineStuff()
     {
@@ -71,14 +90,40 @@ public class ShrineScript : MonoBehaviour
     private void playAnimationsForShrineStuff()
     {
         shrineAnimator.SetBool("Cinematico", true);
-        canvasAnimator.SetBool("CinematicoUI", true);
-    }
-    private IEnumerator moveCamera()
-    {
-		var preventables = playerMover.GetComponents<IPreventable>();
-		foreach (var preventable in preventables)
+		if (!ending)
 		{
-			preventable.StartPrevent();
+			canvasAnimator.SetBool("CinematicoUI", true);
+		}
+		else
+		{
+			canvasAnimator.SetBool("EndingCinematicoUI", true);
+		}
+	}
+    private IEnumerator moveCamera(bool doSecondaryMove = false)
+    {
+		var toCamPos = shrineCamPos;
+
+		if (!doSecondaryMove)
+		{
+			var preventables = playerMover.GetComponents<IPreventable>();
+			foreach (var preventable in preventables)
+			{
+				preventable.StartPrevent();
+			}
+		}
+		else
+		{
+			toCamPos = lateCamPos;
+			if (preCameraMoveAnimator != null)
+			{
+				waitingToMoveCamera = true;
+				preCameraMoveAnimator.gameObject.SetActive(true);
+				preCameraMoveAnimator.enabled = true;
+				while (waitingToMoveCamera)
+				{
+					yield return null;
+				}
+			}
 		}
 
 		if (cinemachineVirtualCamera != null)
@@ -91,15 +136,20 @@ public class ShrineScript : MonoBehaviour
         initialCamRot = mainCam.gameObject.transform.rotation;
         while (timePassed < camMoveTime)
         {
-            mainCam.gameObject.transform.position = Vector3.Lerp(initialCamPos, shrineCamPos.position, timePassed / camMoveTime);
-            mainCam.gameObject.transform.rotation = Quaternion.Lerp(initialCamRot, shrineCamPos.rotation, timePassed / camMoveTime);
+            mainCam.gameObject.transform.position = Vector3.Lerp(initialCamPos, toCamPos.position, timePassed / camMoveTime);
+            mainCam.gameObject.transform.rotation = Quaternion.Lerp(initialCamRot, toCamPos.rotation, timePassed / camMoveTime);
             timePassed += Time.deltaTime;
             yield return null;
         }
-        mainCam.gameObject.transform.position = shrineCamPos.position;
-        mainCam.gameObject.transform.rotation = shrineCamPos.rotation;
+        mainCam.gameObject.transform.position = toCamPos.position;
+        mainCam.gameObject.transform.rotation = toCamPos.rotation;
         yield return null;
-    }
+
+		if (lateCamPos != null)
+		{
+			yield return moveCamera(true);
+		}
+	}
 
     private IEnumerator moveCameraBack()
     {
@@ -177,5 +227,10 @@ public class ShrineScript : MonoBehaviour
 			playerMover.GetComponentInChildren<WaitForSpores>().EndWait();
 
 		}
+	}
+
+	public void ReadyForCameraMove()
+	{
+		waitingToMoveCamera = false;
 	}
 }

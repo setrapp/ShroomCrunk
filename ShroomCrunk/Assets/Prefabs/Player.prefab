@@ -5592,7 +5592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canGenerate: 0
-  generateCooldown: 5
+  generateCooldown: 2
   onGenerate:
     m_PersistentCalls:
       m_Calls:
