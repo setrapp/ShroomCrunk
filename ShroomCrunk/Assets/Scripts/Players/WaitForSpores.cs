@@ -11,6 +11,7 @@ public class WaitForSpores : MonoBehaviour
 	
 	[SerializeField] UnityEvent onGenerate = null;
 	[SerializeField] Animator anim = null;
+	bool dipable = false;
 
 	Quaternion? preWaitRot = Quaternion.identity;
 
@@ -48,20 +49,36 @@ public class WaitForSpores : MonoBehaviour
 			//transform.LookAt(lookAt, Vector3.up);
 		}
 
-		canGenerate = true;
-		if (anim != null)
+		dipable = true;
+		Event_ContinueDip();
+
+	}
+
+	public void Event_ContinueDip()
+	{
+		if (dipable)
 		{
-			anim.SetBool("Dip", true);
+			canGenerate = true;
+			if (anim != null)
+			{
+				anim.SetBool("Dip", true);
+			}
 		}
 	}
 
-	public void EndWait()
+	public void Event_PauseDip()
 	{
 		canGenerate = false;
 		if (anim != null)
 		{
 			anim.SetBool("Dip", false);
 		}
+	}
+
+	public void EndWait()
+	{
+		Event_PauseDip();
+		dipable = false;
 
 		if (preWaitRot != null)
 		{
