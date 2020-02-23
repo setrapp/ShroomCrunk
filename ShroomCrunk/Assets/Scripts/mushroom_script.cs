@@ -34,7 +34,7 @@ public abstract class baseSpawningThing : MonoBehaviour
             transform.localScale = new Vector3(scale, scale, scale);
             yield return null;
         }
-        Destroy(this.gameObject);
+        death();
         yield return null;
 
     }
@@ -58,6 +58,7 @@ public abstract class baseSpawningThing : MonoBehaviour
 
 public class mushroom_script : baseSpawningThing
 {
+    
     protected override void death()
     {
         Destroy(this.gameObject);

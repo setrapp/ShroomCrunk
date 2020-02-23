@@ -12,7 +12,6 @@ public class mushroom_spawnito_me_amigo : MonoBehaviour
     private int mask;
     public float grassDeleteTime;
     public float mushroomDeleteTime;
-
         
     public Transform raycasting_point;
     bool spawning = false;
