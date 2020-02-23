@@ -254,6 +254,8 @@ MonoBehaviour:
   shrineCamPos: {fileID: 5936471750979960059}
   camMoveTime: 2
   lettersScrolledPerSecond: 10
+  canvasAnimator: {fileID: 0}
+  shrineAnimator: {fileID: 1878269580}
 --- !u!95 &1878269580
 Animator:
   serializedVersion: 3
