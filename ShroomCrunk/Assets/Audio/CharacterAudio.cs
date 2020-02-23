@@ -16,7 +16,7 @@ public class CharacterAudio : MonoBehaviour
     void WalkAudio()
     {
         characterAudio.pitch = Random.Range(0.9f, 1.2f);
-        characterAudio.PlayOneShot(walkClick, 0.2f);
+        characterAudio.PlayOneShot(walkClick, 0.06f);
     }
     public void JumpAudio()
     {
