@@ -218,6 +218,11 @@ public class ShrineScript : MonoBehaviour
 
 	private void RechargeSpores(bool recharging)
 	{
+		if (playerMover == null)
+		{
+			playerMover = GameObject.FindWithTag("Player").GetComponent<PlayerMover>();
+		}
+
 		if (recharging)
 		{
 			playerMover.GetComponentInChildren<WaitForSpores>().Event_DipAndWait(transform);
