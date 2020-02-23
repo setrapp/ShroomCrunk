@@ -6165,6 +6165,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 3.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1292366935235111679, guid: 844e41538571949b8b3c7fa0b0757911,
+        type: 3}
+      propertyPath: m_Range
+      value: 179.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2479030567239089146, guid: 844e41538571949b8b3c7fa0b0757911,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -6398,12 +6403,12 @@ PrefabInstance:
     - target: {fileID: 6974883049707864642, guid: 844e41538571949b8b3c7fa0b0757911,
         type: 3}
       propertyPath: m_Size.x
-      value: 136
+      value: 103.44
       objectReference: {fileID: 0}
     - target: {fileID: 6974883049707864642, guid: 844e41538571949b8b3c7fa0b0757911,
         type: 3}
       propertyPath: m_Size.z
-      value: 180.1
+      value: 101.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 844e41538571949b8b3c7fa0b0757911, type: 3}
@@ -61739,10 +61744,10 @@ MonoBehaviour:
     tangent: {x: 60.032722, y: 27.986877, z: -38.98062}
     roll: 0
   - position: {x: 104.190575, y: 502.81256, z: -7.824005}
-    tangent: {x: 8.095306, y: 17.46051, z: -38.98062}
+    tangent: {x: 19.491898, y: 17.46051, z: -28.910568}
     roll: 0
-  - position: {x: 187.06317, y: 522.9209, z: -106.38509}
-    tangent: {x: 77.418945, y: -0.3875122, z: 27.484024}
+  - position: {x: 192.0104, y: 517.98035, z: 12.316933}
+    tangent: {x: 23.368515, y: -10.167847, z: 14.909058}
     roll: 0
   - position: {x: 259.97696, y: 505.63684, z: 72.74039}
     tangent: {x: 17.400879, y: -0.3875122, z: 27.484024}
