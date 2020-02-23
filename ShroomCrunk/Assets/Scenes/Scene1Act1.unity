@@ -11380,13 +11380,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956972683335969421, guid: 711232e74b5d1124b98e1acd845f0356,
         type: 3}
-      propertyPath: m_fontColor.a
-      value: 0
+      propertyPath: m_fontColor32.rgba
+      value: 15858944
       objectReference: {fileID: 0}
     - target: {fileID: 1956972683335969421, guid: 711232e74b5d1124b98e1acd845f0356,
         type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 15858944
+      propertyPath: m_fontColor.a
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6320774409046931809, guid: 711232e74b5d1124b98e1acd845f0356,
         type: 3}
@@ -11506,6 +11506,11 @@ PrefabInstance:
     - target: {fileID: 7651113076111930847, guid: 711232e74b5d1124b98e1acd845f0356,
         type: 3}
       propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9111723171041452412, guid: 711232e74b5d1124b98e1acd845f0356,
+        type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
