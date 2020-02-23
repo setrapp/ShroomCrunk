@@ -93,7 +93,7 @@ Material:
     - _Radius: 1
     - _Rigidness: 25
     - _RimPower: 17.7
-    - _Scale: 0.08
+    - _Scale: 0.03
     - _SideScale: 0.15
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
