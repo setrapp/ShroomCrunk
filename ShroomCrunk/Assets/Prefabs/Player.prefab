@@ -5089,7 +5089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542369643fa18b7419e41ee38550594c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkClick: {fileID: 8300000, guid: 3829a31615032ec418bba02658c4e2ff, type: 3}
+  walkClick: {fileID: 0}
   jumpClip: {fileID: 8300000, guid: 9236fb83f3d34ed4a99673c64f50e899, type: 3}
 --- !u!1 &8920661130635309573
 GameObject:
@@ -5109,6 +5109,7 @@ GameObject:
   - component: {fileID: 1153215946}
   - component: {fileID: 8963348292380643639}
   - component: {fileID: 1153215942}
+  - component: {fileID: 447301452}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -5440,6 +5441,34 @@ MonoBehaviour:
   onPlant:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &447301452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8920661130635309573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bd2cd49f87c4cf5bfc69cb55e4942c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canGenerate: 1
+  generateCooldown: 5
+  onGenerate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1153215942}
+        m_MethodName: Event_AccumulateSpores
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8920661130994174851
 GameObject:
   m_ObjectHideFlags: 0
@@ -5757,7 +5786,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 632810ca5823eb94f80d63fd02e6d25e, type: 3}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ddc8a0bd7b56e74eabcda57147a5f78, type: 3}
 --- !u!4 &6951817470709136884 stripped
