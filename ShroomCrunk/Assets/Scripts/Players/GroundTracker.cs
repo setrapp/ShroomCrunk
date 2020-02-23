@@ -13,64 +13,21 @@ public class GroundTracker : MonoBehaviour
 	[SerializeField] UnityEvent onLanded = null;
 	[SerializeField] UnityEvent onUnlanded = null;
 
-
-	List<Collision> groundHits = new List<Collision>();
+	List<Collider> groundHits = new List<Collider>();
+	public Collision RecentCollision { get; private set; } = null;
 
 	public bool Grounded { get { return groundHits.Count > 0; } }
-
-	public Vector3 GroundNormal
-	{
-		get
-		{
-			Vector3 normal = (zNormal ? Vector3.forward : Vector3.up);
-			if (Grounded)
-			{
-				normal = groundHits[groundHits.Count - 1].contacts[0].normal;
-			}
-
-			normal *= (invertNormal ? -1 : 1);
-			return normal;
-		}
-	}
-
-	public Vector3 GroundPoint
-	{
-		get
-		{
-			Vector3 point = Vector3.zero;
-			if (Grounded)
-			{
-				point = groundHits[groundHits.Count - 1].contacts[0].point;
-			}
-
-			return point;
-		}
-	}
-
-	public int GroundLayer
-	{
-		get
-		{
-			var layer = 0;
-			if (Grounded)
-			{
-				layer = groundHits[groundHits.Count - 1].collider.gameObject.layer;
-			}
-
-			return layer;
-		}
-	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
 		bool wasGrounded = Grounded;
 
-		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)) && !trackingCollider(collision.collider))
+		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)) && !groundHits.Contains(collision.collider))
 		{
 			var minDot = Mathf.Cos(maxIncline * Mathf.Deg2Rad);
 			bool hasVerticalContact = false;
 
-			foreach(var contact in collision.contacts)
+			foreach (var contact in collision.contacts)
 			{
 				// TODO This is not enough to prevent the player from running on ground at too sharp and incline.
 				var contactNormal = invertNormal ? -contact.normal : contact.normal;
@@ -85,7 +42,8 @@ public class GroundTracker : MonoBehaviour
 
 			if (hasVerticalContact)
 			{
-				groundHits.Add(collision);
+				groundHits.Add(collision.collider);
+				RecentCollision = collision;
 			}
 		}
 
@@ -100,35 +58,16 @@ public class GroundTracker : MonoBehaviour
 		bool wasGrounded = Grounded;
 		if (collision.collider.gameObject.layer.Equals(LayerMask.NameToLayer(groundLayer)))
 		{
-			if (trackingCollider(collision.collider))
+			if (groundHits.Contains(collision.collider))
 			{
-				for(int i = 0; i < groundHits.Count; i++)
-				{
-					var trackedCollision = groundHits[i];
-					if (trackedCollision.collider == collision.collider)
-					{
-						groundHits.RemoveAt(i);
-						i--;
-					}
-				}
+				groundHits.Remove(collision.collider);
 			}
 		}
 
 		if (!Grounded && wasGrounded)
 		{
+			RecentCollision = null;
 			onUnlanded.Invoke();
 		}
-	}
-
-	bool trackingCollider(Collider collider)
-	{
-		foreach (var collision in groundHits)
-		{
-			if (collision.collider == collider)
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 }

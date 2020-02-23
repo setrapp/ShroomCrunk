@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(GroundTracker))]
 public class PlantMushroom : MonoBehaviour
@@ -15,6 +16,9 @@ public class PlantMushroom : MonoBehaviour
 	public int sporesRemaining = 0;
 
 	public Transform decorContainer = null;
+
+	[SerializeField] UnityEvent onAccumulate = null;
+	[SerializeField] UnityEvent onPlant = null;
 
 	private void Start()
 	{
@@ -32,15 +36,16 @@ public class PlantMushroom : MonoBehaviour
 	{
 		if (mushroomToPlant != null && sporesRemaining > 0)
 		{
-			if (groundTracker.GroundLayer != 0 && (groundTracker.GroundLayer & mask) == groundTracker.GroundLayer)
+			var groundLayer = groundTracker?.RecentCollision?.collider.gameObject.layer ?? 0;
+			if (groundLayer != 0 && (groundLayer & mask) == groundLayer)
 			{
 				var minDot = Mathf.Cos(maxIncline * Mathf.Deg2Rad);
-				var contactNormal = groundTracker.GroundNormal;
+				var contactNormal = groundTracker.RecentCollision.contacts[0].normal;
 
 				if (Vector3.Dot(contactNormal, Vector3.up) >= minDot)
 				{
 					sporesRemaining--;
-					var planted = Instantiate(mushroomToPlant.gameObject, groundTracker.GroundPoint, Quaternion.identity, decorContainer).GetComponent<mushroom_script>();
+					var planted = Instantiate(mushroomToPlant.gameObject, groundTracker.RecentCollision.contacts[0].point, Quaternion.identity, decorContainer).GetComponent<mushroom_script>();
 					planted.growUp();
 				}
 			}
@@ -49,6 +54,6 @@ public class PlantMushroom : MonoBehaviour
 
 	public void Event_AccumulateSpores(int addSpores)
 	{
-		sporesRemaining += addSpores;
+		sporesRemaining = Mathf.Min(sporesRemaining + addSpores, maxSporeCapacity);
 	}
 }

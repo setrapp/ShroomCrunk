@@ -80,7 +80,14 @@ public class PlayerMover : MonoBehaviour, IPreventable
 			}
 			else
 			{
-				up = groundTracker.GroundNormal;
+				if (groundTracker.RecentCollision?.contacts.Length > 0)
+				{
+					up = groundTracker.RecentCollision.contacts[0].normal; 
+				}
+				else
+				{
+					up = Vector3.up;// TODO This should be fixed for both planes
+				}
 			}
 
 			return up;
