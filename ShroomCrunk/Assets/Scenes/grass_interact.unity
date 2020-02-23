@@ -487,9 +487,64 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
         type: 3}
+      propertyPath: monologue.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
       propertyPath: text
       value: 
       objectReference: {fileID: 239532303}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[0]
+      value: Oh! What do we have here...
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[1]
+      value: Well I must say it's been a while since we've had company
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[2]
+      value: Not that you would've been my first invite
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[3]
+      value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[4]
+      value: Well you know what you have to do don't you?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[5]
+      value: Bah! The youth these days.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[6]
+      value: They'd forget their antennae if they weren't attached to their basidiocarps
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[7]
+      value: It's very obvious
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[8]
+      value: Go to the top of the mountain
+      objectReference: {fileID: 0}
+    - target: {fileID: 5936471751338273588, guid: 9f655bc44a3b077488f2bb415a97b880,
+        type: 3}
+      propertyPath: monologue.Array.data[9]
+      value: That is where you must release your final spore...
+      objectReference: {fileID: 0}
     - target: {fileID: 5936471751338273589, guid: 9f655bc44a3b077488f2bb415a97b880,
         type: 3}
       propertyPath: m_LocalPosition.x
