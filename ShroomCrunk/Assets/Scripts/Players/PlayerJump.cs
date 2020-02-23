@@ -40,7 +40,7 @@ public class PlayerJump : MonoBehaviour
 			{
 				if (readyToJump)
 				{
-                    charaAudioJump.JumpAudio();
+                    charaAudioJump?.JumpAudio();
 
                     jumpRemaining = extraDuration;
 					jumpStrength = initialJump;
