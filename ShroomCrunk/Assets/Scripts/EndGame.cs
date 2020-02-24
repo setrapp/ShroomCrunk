@@ -16,6 +16,6 @@ public class EndGame : MonoBehaviour
 	[SerializeField] string gotoScene;
 	public void EndTheGame()
 	{
-		SceneManager.LoadScene(gotoScene);
+		SceneManager.LoadScene("credits");
 	}
 }
